@@ -1,0 +1,52 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!--Type definition for keywords   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<xs:simpleType name="Keyword_t">
+		<xs:union memberTypes="AWL_Keyword_t semikolon_t comma_t SBracketopen_t SBracketclose_t CALL_Keyword_t COLON_Keyword_t Backetopen_Keyword_t Backetclose_Keyword_t"/>
+		<!--<xs:union memberTypes="SCL_Keyword_t AWL_Keyword_t"/>-->
+	</xs:simpleType>
+	<xs:simpleType name="semikolon_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=";"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="comma_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=","/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SBracketopen_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="["/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SBracketclose_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="]"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- CALL_Keyword   -->
+	<xs:simpleType name="CALL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CALL"/>
+			<xs:enumeration value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="COLON_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=":"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Backetopen_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="("/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Backetclose_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=")"/>
+		</xs:restriction>
+	</xs:simpleType>
+</xs:schema>

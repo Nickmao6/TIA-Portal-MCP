@@ -1,0 +1,45 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    {
+      "title": "MCP生成: 调用 FB_MotorStartStop(接真实中文变量)",
+      "call": {
+        "fb": "FB_MotorStartStop",
+        "instance": "FB_MotorStartStop_1_DB",
+        "enable": "启动按钮",
+        "params": [
+          {
+            "pin": "Start",
+            "section": "Input",
+            "type": "Bool",
+            "to": "启动按钮"
+          },
+          {
+            "pin": "Stop",
+            "section": "Input",
+            "type": "Bool",
+            "to": "停止按钮"
+          },
+          {
+            "pin": "ThermalOK",
+            "section": "Input",
+            "type": "Bool",
+            "to": "热保护"
+          },
+          {
+            "pin": "Contactor",
+            "section": "Output",
+            "type": "Bool",
+            "to": "接触器"
+          },
+          {
+            "pin": "Running",
+            "section": "Output",
+            "type": "Bool",
+            "to": "运行指示"
+          }
+        ]
+      }
+    }
+  ]
+}

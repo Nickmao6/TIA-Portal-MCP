@@ -1,0 +1,9 @@
+# TIA MCP 项目授权范围（模板）
+#
+# 复制本文件为 tia-scope.txt，然后每行写一个允许操作的项目目录：
+#
+# C:\Users\你的用户名\Documents\Automation\项目A
+# C:\Users\你的用户名\Documents\Automation\项目B
+#
+# 只有位于这些目录下的博途项目才允许被 MCP 操作。
+# tia-scope.txt 已被 .gitignore 忽略，不会上传到 GitHub。

@@ -1,0 +1,20 @@
+{
+  "keep_first_segment": false,
+  "networks": [
+    {
+      "title": "调用 FB_大棚",
+      "call": {
+        "fb": "FB_大棚",
+        "instance": "大棚DB",
+        "params": [
+          { "pin": "温度",       "section": "InOut",  "type": "Real", "to": "当前温度" },
+          { "pin": "红灯",       "section": "Output", "type": "Bool", "to": "红灯" },
+          { "pin": "黄灯",       "section": "Output", "type": "Bool", "to": "黄灯" },
+          { "pin": "绿灯",       "section": "Output", "type": "Bool", "to": "绿灯" },
+          { "pin": "加热电阻丝", "section": "Output", "type": "Bool", "to": "加热电阻丝" },
+          { "pin": "散热风扇",   "section": "Output", "type": "Bool", "to": "散热风扇" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,183 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © Siemens AG 2008-2017. All rights reserved. -->
+<xs:schema id="FLDInternalFamilyLib"
+    targetNamespace="http://www.siemens.com/2015/10/Simatic/BlockLogic/FLDiagram/PartLibProxy/FamilyLib"
+    elementFormDefault="qualified"
+    xmlns="http://www.siemens.com/2015/10/Simatic/BlockLogic/FLDiagram/PartLibProxy/FamilyLib"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="FLDInternalFamilies">
+    <xs:complexType mixed="true">
+      <xs:sequence>
+        <xs:element name="FLDInternalFamily" type="FamilyT" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="Version" type="FamiliesVersionT" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="FamiliesVersionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="V1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="FLDInternalFamily" type="FamilyT" />
+  
+  <xs:complexType name="FamilyT">
+    <xs:sequence>
+      <xs:element name="GenericInterface" type="GenericInterfaceT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="CodeGenerations" type="CodeGenerationsT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="PlcArray" type="PlcArrayT" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="Version" type="FamilyVersionT" use="required"/>
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="FamilyVersionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="V1.1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="NameT">
+    <xs:restriction base="xs:string">
+      <xs:minLength value="1"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="GenericInterfaceT">
+    <xs:sequence>
+      <xs:element name="TemplateVariables" type="TemplateVariablesT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Parameters" type="ParametersT" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TemplateVariablesT">
+    <xs:sequence>
+      <xs:element name="TemplateVariable" type="TemplateVariableT" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="TemplateVariableT">
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Pos" type="PosT" use="required" />
+    <xs:attribute name="Type" type="TemplateTypeT" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="PosT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="undef" />
+      <xs:enumeration value="source" />
+      <xs:enumeration value="dest" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TemplateTypeT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="type" />
+      <xs:enumeration value="cardinality" />
+      <xs:enumeration value="operation" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:complexType name="ParametersT">
+    <xs:sequence>
+      <xs:element name="Parameter" type="ParameterT" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterT">
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="Section" type="SectionT" use="required" />
+    <xs:attribute name="TemplateCardinality" type="xs:string" use="optional" />
+    <!--Type xor TemplateType has to exist-->
+    <xs:attribute name="Type" type="xs:string" use="optional" />
+    <xs:attribute name="TemplateType" type="xs:string" use="optional" />
+    <xs:attribute name="PinDirection" type="PinDirectionT" use="required" />
+    <xs:attribute name="Cardinality" type="CardinalityT" use="required" />
+    <xs:attribute name="XRefAccessKind" type="XRefAccessKindT" use="required"/>
+  </xs:complexType>
+
+  <xs:simpleType name="SectionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Input" />
+      <xs:enumeration value="Output" />
+      <xs:enumeration value="InOut" />
+      <xs:enumeration value="Operand" />
+      <xs:enumeration value="None" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="PinDirectionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Operand" />
+      <xs:enumeration value="Input" />
+      <xs:enumeration value="Output" />
+      <xs:enumeration value="InOut" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+  <xs:simpleType name="CardinalityT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ExactZero" />
+      <xs:enumeration value="ExactOne" />
+      <xs:enumeration value="ZeroOrOne" />
+      <xs:enumeration value="ZeroOrMany" />
+      <xs:enumeration value="OneOrMany" />
+      <xs:enumeration value="TwoOrMany" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="XRefAccessKindT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="" />
+      <xs:enumeration value="Jump" />
+      <xs:enumeration value="Call" />
+      <xs:enumeration value="Open" />
+      <xs:enumeration value="Read" />
+      <xs:enumeration value="Write" />
+      <xs:enumeration value="RW" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CodeGenerationsT">
+    <xs:sequence>
+      <xs:element name="CodeGeneration" type="CodeGenerationT" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CodeGenerationT">
+    <xs:attribute name="FragmentType" type="FragmentTypeT" use="required" />
+    <xs:attribute name="ParameterName" type="xs:string" use="required" />
+    <xs:attribute name="MethodName" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="FragmentTypeT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AWL" />
+      <xs:enumeration value="MC7Plus" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PlcArrayT">
+    <xs:sequence>
+      <xs:element name="Target" type="PlcArrayTargetT" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PlcArrayTargetT">
+    <xs:sequence>
+      <xs:element name="Parameters" type="ParametersT" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+    <!-- used to override Parameters list on specified target -->
+    <xs:attribute name="Name" type="PlcArrayTargetNameT" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="PlcArrayTargetNameT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="MC7" />
+    </xs:restriction>
+  </xs:simpleType>
+  
+</xs:schema>

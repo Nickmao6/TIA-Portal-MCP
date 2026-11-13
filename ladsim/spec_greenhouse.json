@@ -1,0 +1,89 @@
+{
+  "keep_first_segment": false,
+  "networks": [
+    {
+      "title": "段01 秒脉冲(每秒一个扫描周期)",
+      "rungs": [[
+        { "k": "nc", "tag": "秒脉冲", "local": true },
+        { "k": "TON", "local": true, "instance": "秒脉冲定时器",
+          "instance_scope": "LocalVariable", "pt": "T#1s", "et": "秒脉冲耗时" },
+        { "k": "coil", "tag": "秒脉冲", "local": true }
+      ]]
+    },
+    {
+      "title": "段02 加热自保持(温度<20触发, >25停止)",
+      "rungs": [[
+        { "k": "par", "local": true, "branches": [
+            [{ "k": "LT", "local": true, "vtype": "Real", "values": ["温度", 20.0] }],
+            [{ "k": "no", "tag": "加热运行中", "local": true },
+             { "k": "LE", "local": true, "vtype": "Real", "values": ["温度", 25.0] }]
+        ]},
+        { "k": "coil", "tag": "加热运行中", "local": true }
+      ]]
+    },
+    {
+      "title": "段03 加热电阻丝输出",
+      "rungs": [[
+        { "k": "no", "tag": "加热运行中", "local": true },
+        { "k": "coil", "tag": "加热电阻丝", "local": true }
+      ]]
+    },
+    {
+      "title": "段04 加热时每秒升温0.2度",
+      "rungs": [[
+        { "k": "no", "tag": "加热电阻丝", "local": true },
+        { "k": "no", "tag": "秒脉冲", "local": true },
+        { "k": "ADD", "local": true, "vtype": "Real", "inputs": ["温度", 0.2], "out": "温度" }
+      ]]
+    },
+    {
+      "title": "段05 风扇自保持(温度>30触发, 至少转20秒)",
+      "rungs": [[
+        { "k": "par", "local": true, "branches": [
+            [{ "k": "GT", "local": true, "vtype": "Real", "values": ["温度", 30.0] }],
+            [{ "k": "no", "tag": "风扇运行中", "local": true },
+             { "k": "nc", "tag": "风扇计时到", "local": true }]
+        ]},
+        { "k": "coil", "tag": "风扇运行中", "local": true }
+      ]]
+    },
+    {
+      "title": "段06 风扇运行计时20秒",
+      "rungs": [[
+        { "k": "no", "tag": "风扇运行中", "local": true },
+        { "k": "TON", "local": true, "instance": "风扇定时器",
+          "instance_scope": "LocalVariable", "pt": "T#20s", "et": "风扇耗时" },
+        { "k": "coil", "tag": "风扇计时到", "local": true }
+      ]]
+    },
+    {
+      "title": "段07 散热风扇输出",
+      "rungs": [[
+        { "k": "no", "tag": "风扇运行中", "local": true },
+        { "k": "coil", "tag": "散热风扇", "local": true }
+      ]]
+    },
+    {
+      "title": "段08 红灯=温度>30",
+      "rungs": [[
+        { "k": "GT", "local": true, "vtype": "Real", "values": ["温度", 30.0] },
+        { "k": "coil", "tag": "红灯", "local": true }
+      ]]
+    },
+    {
+      "title": "段09 黄灯=温度<20",
+      "rungs": [[
+        { "k": "LT", "local": true, "vtype": "Real", "values": ["温度", 20.0] },
+        { "k": "coil", "tag": "黄灯", "local": true }
+      ]]
+    },
+    {
+      "title": "段10 绿灯=20<=温度<=30",
+      "rungs": [[
+        { "k": "LE", "local": true, "vtype": "Real", "values": ["温度", 30.0] },
+        { "k": "GE", "local": true, "vtype": "Real", "values": ["温度", 20.0] },
+        { "k": "coil", "tag": "绿灯", "local": true }
+      ]]
+    }
+  ]
+}

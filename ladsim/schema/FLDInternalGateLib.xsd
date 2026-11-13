@@ -1,0 +1,154 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © Siemens AG 2008-2017. All rights reserved. -->
+<xs:schema id="FLDInternalGateLib"
+    targetNamespace="http://www.siemens.com/2015/10/Simatic/BlockLogic/FLDiagram/PartLibProxy/GateLib"
+    elementFormDefault="qualified"
+    xmlns="http://www.siemens.com/2015/10/Simatic/BlockLogic/FLDiagram/PartLibProxy/GateLib"
+    xmlns:xs="http://www.w3.org/2001/XMLSchema"
+>
+
+  <xs:element name="FLDInternalGates">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="FLDInternalGate" type="FLDInternalGateT" minOccurs="0" maxOccurs="unbounded" />
+      </xs:sequence>
+      <xs:attribute name="Version" type="GatesVersionT" use="required"/>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:simpleType name="GatesVersionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="V1.0"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:element name="FLDInternalGate" type="FLDInternalGateT" />
+  
+  <xs:complexType name="FLDInternalGateT">
+    <xs:sequence>
+      <xs:element name="Commands" type="CommandsT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="Flags" type="GateFlagsT" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="PlcArray" type="PlcArrayT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="InstructionMapping" type="InstructionMappingT" minOccurs="0" maxOccurs="1" />
+      <xs:element name="GateClassName" type="xs:string" minOccurs="0" maxOccurs="1" />
+      <xs:element name="HardcodedLineInPin" type="HardcodedLinPinT" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="HardcodedLineOutPin" type="HardcodedLinPinT" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="PlusCompileOutPin" type="xs:string" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="PlusCompilePin" type="xs:string" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="Version" type="GateVersionT" use="required" />
+    <!-- the name of the gate -->
+    <xs:attribute name="Name" type="xs:string" use="required" />
+    <xs:attribute name="GateType" type="xs:string" use="required" />
+    <xs:attribute name="FamilyType" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="GateVersionT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="V1.3"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="CommandsT">
+    <xs:sequence>
+      <xs:element name="Command" type="CommandT" minOccurs="0" maxOccurs="2" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CommandT">
+    <xs:attribute name="FragmentType" type="FragmentTypeT" use="required" />
+    <xs:attribute name="Command" type="xs:string" use="required" />
+    <xs:attribute name="NegatedCommand" type="xs:string" use="optional" />
+  </xs:complexType>
+
+  <xs:simpleType name="FragmentTypeT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="AWL" />
+      <xs:enumeration value="MC7Plus" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="GateFlagsT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SupportsFloatingComment" />
+      <xs:enumeration value="InternalGateOnly" />
+      <xs:enumeration value="UseInstructionCompiler" />
+      <xs:enumeration value="ValidForClassicTargets" />
+      <xs:enumeration value="ValidForPlusTargets" />
+      <xs:enumeration value="NonInteruptable" />
+      <xs:enumeration value="HasVariablePinCount" />
+      <xs:enumeration value="IsSetBox" />
+      <xs:enumeration value="IsLeafType" />
+      <xs:enumeration value="IsBoxType" />
+      <xs:enumeration value="IsCoilType" />
+      <xs:enumeration value="CanUseAsContact" />
+      <xs:enumeration value="IsMath" />
+      <xs:enumeration value="AlwaysGenerateEnoForCanFailImplicitConverts" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="PlcArrayT">
+    <xs:sequence>
+      <xs:element name="Target" type="PlcArrayTargetT" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PlcArrayTargetT">
+    <xs:sequence>
+      <xs:element name="Flags" type="TargetFlagsT" minOccurs="1" maxOccurs="unbounded" />
+      <xs:element name="Languages" type="TargetLanguagesT" minOccurs="1" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="Name" type="PlcArrayTagetNameT" use="required" />
+  </xs:complexType>
+
+  <xs:simpleType name="PlcArrayTagetNameT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="s71200" />
+      <xs:enumeration value="s71500" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TargetFlagsT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="SupportsDeactivatedEnoGeneration" />
+      <xs:enumeration value="SupportsAutoMode" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="TargetLanguagesT">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LAD_CLASSIC" />
+      <xs:enumeration value="FBD_CLASSIC" />
+      <xs:enumeration value="LAD_IEC" />
+      <xs:enumeration value="FBD_IEC" />
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:complexType name="InstructionMappingT">
+    <xs:sequence>
+      <xs:element name="ParameterMappings" type="ParameterMappingsT" minOccurs="1" maxOccurs="1" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="ParameterMappingsT">
+    <xs:sequence>
+      <xs:element name="GateOnlyParameter" type="GateOnlyParameterT" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="ParameterMapped" type="ParameterMappedT" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="GateOnlyParameterT">
+    <xs:attribute name="InternalGateName" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="ParameterMappedT">
+    <xs:attribute name="InstructionName" type="xs:string" use="required" />
+    <xs:attribute name="InternalGateName" type="xs:string" use="required" />
+  </xs:complexType>
+
+  <xs:complexType name="HardcodedLinPinT">
+    <xs:attribute name="PinName" type="xs:string" use="optional"/>
+    <xs:attribute name="PinNumber" type="xs:string" use="optional"/>
+  </xs:complexType>
+
+</xs:schema>

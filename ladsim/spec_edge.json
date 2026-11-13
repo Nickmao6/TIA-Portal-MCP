@@ -1,0 +1,19 @@
+{
+  "keep_first_segment": false,
+  "networks": [
+    {
+      "title": "MCP生成: 上升沿测试",
+      "rungs": [[
+        { "k": "p", "tag": "Tag_1", "store": "Tag_2" },
+        { "k": "coil", "tag": "红灯", "local": true }
+      ]]
+    },
+    {
+      "title": "MCP生成: 下降沿测试",
+      "rungs": [[
+        { "k": "n", "tag": "Tag_3", "store": "Tag_4" },
+        { "k": "coil", "tag": "黄灯", "local": true }
+      ]]
+    }
+  ]
+}

@@ -1,0 +1,793 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    {
+      "title": "段02 停止时初始化 阶段=0",
+      "rungs": [
+        [
+          {
+            "k": "nc",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 0,
+            "outs": [
+              "阶段"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段02b 停止时初始化 倒计时=10",
+      "rungs": [
+        [
+          {
+            "k": "nc",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 10,
+            "outs": [
+              "倒计时"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段01 启动停止自保持",
+      "rungs": [
+        [
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "启动",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "运行中",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "nc",
+            "tag": "停止",
+            "local": true
+          },
+          {
+            "k": "coil",
+            "tag": "运行中",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段03 秒脉冲(每秒一个扫描周期)",
+      "rungs": [
+        [
+          {
+            "k": "nc",
+            "tag": "秒脉冲",
+            "local": true
+          },
+          {
+            "k": "TON",
+            "local": true,
+            "instance": "秒脉冲定时器",
+            "instance_scope": "LocalVariable",
+            "pt": "T#1s",
+            "et": "秒脉冲耗时"
+          },
+          {
+            "k": "coil",
+            "tag": "秒脉冲",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段04 闪灯A 1s",
+      "rungs": [
+        [
+          {
+            "k": "nc",
+            "tag": "闪灯B",
+            "local": true
+          },
+          {
+            "k": "TON",
+            "local": true,
+            "instance": "闪灯定时器A",
+            "instance_scope": "LocalVariable",
+            "pt": "T#1s",
+            "et": "闪灯耗时A"
+          },
+          {
+            "k": "coil",
+            "tag": "闪烁位",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段05 闪灯B 1s",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "闪烁位",
+            "local": true
+          },
+          {
+            "k": "TON",
+            "local": true,
+            "instance": "闪灯定时器B",
+            "instance_scope": "LocalVariable",
+            "pt": "T#1s",
+            "et": "闪灯耗时B"
+          },
+          {
+            "k": "coil",
+            "tag": "闪灯B",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段06 正常模式倒计时递减",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "正常模式",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "秒脉冲",
+            "local": true
+          },
+          {
+            "k": "GT",
+            "local": true,
+            "vtype": "Int",
+            "values": [
+              "倒计时",
+              0
+            ]
+          },
+          {
+            "k": "SUB",
+            "local": true,
+            "vtype": "Int",
+            "inputs": [
+              "倒计时",
+              1
+            ],
+            "out": "倒计时"
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段07 倒计时到0 阶段加1",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "正常模式",
+            "local": true
+          },
+          {
+            "k": "EQ",
+            "local": true,
+            "vtype": "Int",
+            "values": [
+              "倒计时",
+              0
+            ]
+          },
+          {
+            "k": "ADD",
+            "local": true,
+            "vtype": "Int",
+            "inputs": [
+              "阶段",
+              1
+            ],
+            "out": "阶段"
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段08 阶段超过3回到0",
+      "rungs": [
+        [
+          {
+            "k": "GT",
+            "local": true,
+            "vtype": "Int",
+            "values": [
+              "阶段",
+              3
+            ]
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 0,
+            "outs": [
+              "阶段"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段09 阶段0或2时装10秒",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "正常模式",
+            "local": true
+          },
+          {
+            "k": "EQ",
+            "local": true,
+            "vtype": "Int",
+            "values": [
+              "倒计时",
+              0
+            ]
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    0
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    2
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 10,
+            "outs": [
+              "倒计时"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段10 阶段1或3时装3秒",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "正常模式",
+            "local": true
+          },
+          {
+            "k": "EQ",
+            "local": true,
+            "vtype": "Int",
+            "values": [
+              "倒计时",
+              0
+            ]
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    1
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    3
+                  ]
+                }
+              ]
+            ]
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 3,
+            "outs": [
+              "倒计时"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段11 倒计时显示 正常模式显示实际值",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "no",
+            "tag": "正常模式",
+            "local": true
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": "倒计时",
+            "outs": [
+              "倒计时显示"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段12 倒计时显示 紧急模式显示99",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "模式1",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式2",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式3",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式4",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "MOVE",
+            "local": true,
+            "in": 99,
+            "outs": [
+              "倒计时显示"
+            ]
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段13 南北红灯",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    0
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    1
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式2",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式3",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "南北红灯",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段14 南北绿灯",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    2
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式1",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "南北绿灯",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段15 南北黄灯闪烁",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    3
+                  ]
+                },
+                {
+                  "k": "no",
+                  "tag": "闪烁位",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式4",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "南北黄灯",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段16 东西红灯",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    2
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    3
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式1",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式3",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "东西红灯",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段17 东西绿灯",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    0
+                  ]
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式2",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "东西绿灯",
+            "local": true
+          }
+        ]
+      ]
+    },
+    {
+      "title": "段18 东西黄灯闪烁",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "运行中",
+            "local": true
+          },
+          {
+            "k": "par",
+            "local": true,
+            "branches": [
+              [
+                {
+                  "k": "no",
+                  "tag": "正常模式",
+                  "local": true
+                },
+                {
+                  "k": "EQ",
+                  "local": true,
+                  "vtype": "Int",
+                  "values": [
+                    "阶段",
+                    1
+                  ]
+                },
+                {
+                  "k": "no",
+                  "tag": "闪烁位",
+                  "local": true
+                }
+              ],
+              [
+                {
+                  "k": "no",
+                  "tag": "模式4",
+                  "local": true
+                }
+              ]
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "东西黄灯",
+            "local": true
+          }
+        ]
+      ]
+    }
+  ]
+}

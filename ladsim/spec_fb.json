@@ -1,0 +1,54 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    {
+      "title": "FB段1: 输入自保持到静态变量",
+      "rungs": [
+        [
+          {
+            "k": "par",
+            "branches": [
+              {
+                "k": "no",
+                "tag": "输入",
+                "local": true,
+                "local_style": "plain"
+              },
+              {
+                "k": "no",
+                "tag": "静态",
+                "local": true,
+                "local_style": "plain"
+              }
+            ]
+          },
+          {
+            "k": "coil",
+            "tag": "静态",
+            "local": true,
+            "local_style": "plain"
+          }
+        ]
+      ]
+    },
+    {
+      "title": "FB段2: 静态变量驱动输出",
+      "rungs": [
+        [
+          {
+            "k": "no",
+            "tag": "静态",
+            "local": true,
+            "local_style": "plain"
+          },
+          {
+            "k": "coil",
+            "tag": "输出",
+            "local": true,
+            "local_style": "plain"
+          }
+        ]
+      ]
+    }
+  ]
+}

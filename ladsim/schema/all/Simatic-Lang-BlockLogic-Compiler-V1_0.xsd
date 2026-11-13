@@ -1,0 +1,412 @@
+﻿<?xml version="1.0"?>
+<xs:schema xmlns:mstns="http://www.siemens.com/automation/IECPL/BlockLogic/" xmlns="http://www.siemens.com/automation/IECPL/BlockLogic/" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.siemens.com/automation/IECPL/BlockLogic/" elementFormDefault="qualified">
+	<xs:import/>
+	<xs:element name="CompileDescriptions">
+		<xs:complexType>
+			<xs:all>
+				<xs:element name="LanguageDefinitions" type="mstns:LanguageDefinitions">
+					<xs:annotation>
+						<xs:documentation>Contains the language definitions</xs:documentation>
+					</xs:annotation>
+					<xs:unique name="uniqueLanguage">
+						<xs:selector xpath="mstns:ProgrammingLanguage"/>
+						<xs:field xpath="@Name"/>
+					</xs:unique>
+				</xs:element>
+				<xs:element name="CompileUnitDefinitions" type="mstns:CompileUnitDefinitions" minOccurs="0">
+					<xs:annotation>
+						<xs:documentation>Contains the compile unit definitions</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+				<xs:element name="TargetList" type="mstns:TargetList">
+					<xs:annotation>
+						<xs:documentation>Contains the supported targets</xs:documentation>
+					</xs:annotation>
+					<xs:unique name="uniqueTarget">
+						<xs:selector xpath="mstns:Target"/>
+						<xs:field xpath="@Family"/>
+					</xs:unique>
+				</xs:element>
+			</xs:all>
+			<xs:attribute name="Version" type="xs:string" use="required"/>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="LanguageDefinitions">
+		<xs:sequence>
+			<xs:element name="ProgrammingLanguage" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Definition of a language</xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="mstns:ProgrammingLanguage"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ProgrammingLanguage">
+		<xs:sequence>
+			<xs:element name="ResourceInfo" type="mstns:ResourceInfo">
+				<xs:annotation>
+					<xs:documentation>Location of the language text</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="GroupInfo" type="mstns:GroupInfo" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Group information (in V11 only for failsafe blocks)</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLCreateHook" type="mstns:IECPLCreateHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Create hook will be called during block creation</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLDeleteHook" type="mstns:IECPLDeleteHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Delete hook will be called during block deletion</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLCompareHook" type="mstns:IECPLCompareHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Compare hook will be called during block comparison</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLCopyHook" type="mstns:IECPLCopyHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Copy hook will be called after block copy. The target objects data will be used to get the copy hook information.</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLConvertHook" type="mstns:IECPLConvertHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Convert hook will be called during block conversion</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLOpenModeHook" type="mstns:IECPLOpenModeHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Open mode hook will be called during block opening</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLOnlineExtensionHook" type="mstns:IECPLOnlineExtensionHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Download hook will be called several times during the download process</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="IECPLQuickCompareHook" type="mstns:IECPLQuickCompareHook" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Upload hook will be called several times during the upload process</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="LanguageService" type="mstns:LanguageService" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Possibility to define additional services</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="BlockCompiler" type="mstns:BlockCompiler" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Defintion of the block compiler to be used</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebugBlockSupplier" type="mstns:DebugBlockSupplier" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Defintion of the debug block supplier to be used</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Unique reference name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="Id" type="xs:integer" use="required">
+			<xs:annotation>
+				<xs:documentation>Id of the programming language</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="CreateableUI" type="xs:boolean" use="required">
+			<xs:annotation>
+				<xs:documentation>Shown in add new block dialog</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BlockTypes" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Valid block types for definition</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SwitchTo" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>According to language id switch-selectable</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BlockTypePostfix" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Subtype postfix</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BlockTypePostfixId" type="xs:integer" use="optional">
+			<xs:annotation>
+				<xs:documentation>Subtype postfix id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="ResourceInfo">
+		<xs:attribute name="ResourceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Id of the resource</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ResourceType" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Type/Name of the resource</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ResourceAssembly" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Assembly of the resource</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="GroupInfo">
+		<xs:attribute name="Name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Name of the group</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLCreateHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLCompareHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLConvertHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLOpenModeHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="IECPLCopyHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLDeleteHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required"/>
+	</xs:complexType>
+	<xs:complexType name="IECPLOnlineExtensionHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="IECPLQuickCompareHook">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LanguageService">
+		<xs:attribute name="Type" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Full type of the service</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="SingletonBlock" type="xs:boolean" use="required">
+			<xs:annotation>
+				<xs:documentation>Use service as singleton</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="BlockCompiler">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DebugBlockSupplier">
+		<xs:attribute name="ServiceId" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CompileUnitDefinitions">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="CompileUnit" type="mstns:CompileUnit">
+				<xs:annotation>
+					<xs:documentation>Definition of a compile unit</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CompileUnit">
+		<xs:sequence maxOccurs="unbounded">
+			<xs:element name="UnitCompiler" type="mstns:UnitCompiler" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Defintion of a unit compiler</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="DebugUnitSupplier" type="mstns:DebugUnitSupplier" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Defintion of a debug unit supplier</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Name" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>Unique reference name</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ProgrammingLanguage" type="xs:integer" use="required">
+			<xs:annotation>
+				<xs:documentation>Id of the programming language</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="BasedOnLanguage" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>Base language Id for default unit compiler</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="UnitCompiler">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ProgrammingContext" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>The programming/working context</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="DebugUnitSupplier">
+		<xs:attribute name="ServiceId" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>The service id</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+		<xs:attribute name="ProgrammingContext" type="xs:string" use="optional">
+			<xs:annotation>
+				<xs:documentation>The programming/working context</xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="TargetList">
+		<xs:sequence>
+			<xs:element name="Target" type="mstns:Target" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            Definition for a target
+          </xs:documentation>
+				</xs:annotation>
+				<xs:unique name="uniqueLanguageDef">
+					<xs:selector xpath="mstns:LanguageDefinition"/>
+					<xs:field xpath="@ref"/>
+				</xs:unique>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Target">
+		<xs:sequence>
+			<xs:element name="LanguageDefinition" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            A supported programming language
+          </xs:documentation>
+				</xs:annotation>
+				<xs:complexType>
+					<xs:complexContent>
+						<xs:extension base="mstns:LanguageDefinition"/>
+					</xs:complexContent>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="CompileUnitDefinition" type="mstns:CompileUnitDefinition" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>
+            A supported compile unit
+          </xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+		<xs:attribute name="Group" use="required">
+			<xs:annotation>
+				<xs:documentation>
+          The target group (e.g. Classic)
+        </xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="Classic"/>
+					<xs:enumeration value="Plus"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+		<xs:attribute name="Family" use="optional">
+			<xs:annotation>
+				<xs:documentation>
+          The target family (e.g. S7300)
+        </xs:documentation>
+			</xs:annotation>
+			<xs:simpleType>
+				<xs:restriction base="xs:string">
+					<xs:enumeration value="S7300"/>
+					<xs:enumeration value="S7400"/>
+					<xs:enumeration value="S71200"/>
+					<xs:enumeration value="ET200Pro"/>
+					<xs:enumeration value="ET200S"/>
+					<xs:enumeration value="S71500"/>
+					<xs:enumeration value="WinLC"/>
+					<xs:enumeration value="WinAC"/>
+					<xs:enumeration value="LibraryClassic"/>
+					<xs:enumeration value="LibraryPlus"/>
+				</xs:restriction>
+			</xs:simpleType>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="LanguageDefinition">
+		<xs:attribute name="ref" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+          Reference name of a language definition
+        </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+	<xs:complexType name="CompileUnitDefinition">
+		<xs:attribute name="ref" type="xs:string" use="required">
+			<xs:annotation>
+				<xs:documentation>
+          Reference name of a compile unit definition
+        </xs:documentation>
+			</xs:annotation>
+		</xs:attribute>
+	</xs:complexType>
+</xs:schema>

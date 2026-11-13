@@ -1,0 +1,25 @@
+﻿# build outputs
+**/bin/
+**/obj/
+.vs/
+
+# local release artifacts
+dist/
+artifacts/
+
+# local machine configuration (contains project paths)
+tia-scope.txt
+
+# third-party reference sources (kept locally for research, not redistributed)
+_research_tiautil/
+
+# personal learning notes / memory
+docs/TIA-Openness-操作记忆.md
+
+# user files
+*.user
+*.suo
+# python cache / generated LAD exports
+__pycache__/
+*.pyc
+ladsim/out/

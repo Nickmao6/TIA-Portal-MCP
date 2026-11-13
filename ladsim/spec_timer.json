@@ -1,0 +1,16 @@
+{
+  "keep_first_segment": true,
+  "tags": { "延时指示": "%Q0.2", "已耗时间": "%MD60" },
+  "networks": [
+    {
+      "title": "MCP生成的定时器: 启动按钮 -> TON(3s) -> 延时指示",
+      "rungs": [
+        [
+          { "k": "no", "tag": "启动按钮" },
+          { "k": "TON", "instance": "IEC_Timer_0_DB", "pt": "T#3s", "et": "已耗时间" },
+          { "k": "coil", "tag": "延时指示" }
+        ]
+      ]
+    }
+  ]
+}

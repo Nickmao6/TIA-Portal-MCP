@@ -1,0 +1,502 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © Siemens AG 2008-2018. All rights reserved. -->
+
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified">
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- UId ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:attribute name="UId">
+    <xs:simpleType>
+      <xs:restriction base="xs:integer"/>
+    </xs:simpleType>
+  </xs:attribute>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- RefId ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="RefIdType">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Version+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="VersionType">
+    <xs:restriction base="xs:integer"/>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- CompileUnit reference ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:complexType name="CompileUnitReferenceType">
+    <xs:attribute name="NetId" type="xs:integer"/>
+  </xs:complexType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Specifier ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="SpecifierType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Instance"/>
+      <xs:enumeration value="In"/>
+      <xs:enumeration value="Out"/>
+      <xs:enumeration value="InOut"/>
+      <xs:enumeration value="LineIn"/>
+      <xs:enumeration value="LineOut"/>
+      <xs:enumeration value="Identifier"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Section ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="SectionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="RetVal"/>
+      <xs:enumeration value="Input"/>
+      <xs:enumeration value="Output"/>
+      <xs:enumeration value="InOut"/>
+      <xs:enumeration value="Static"/>
+      <xs:enumeration value="Temp"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Pin ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:complexType name="PinType">
+    <xs:attribute name="Specifier" type="SpecifierType" use="required"/>
+    <xs:attribute name="Section" type="SectionType" use="required"/>
+    <xs:attribute name="Name" type="xs:string" use="required"/>
+    <xs:attribute name="Type" type="S7TypeType" use="required"/>
+    <xs:attribute name="TypeQualifier" type="xs:string" use="optional"/>
+    <xs:attribute name="Required" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="Connectable" type="xs:boolean" use="optional" default="true"/>
+    <xs:attribute name="Edgedriven" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute ref="UId" use="optional"/>
+  </xs:complexType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Language +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="LanguageType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="KOP"/>
+      <xs:enumeration value="FUP"/>
+      <xs:enumeration value="AWL"/>
+      <xs:enumeration value="DB"/>
+      <xs:enumeration value="GRAPH"/>
+      <xs:enumeration value="CEM"/>
+      <xs:enumeration value="SDB"/>
+      <xs:enumeration value="DB_CPU"/>
+      <xs:enumeration value="FB_IDB"/>
+      <xs:enumeration value="SFB_IDB"/>
+      <xs:enumeration value="DT_DB"/>
+      <xs:enumeration value="SCL"/>
+      <xs:enumeration value="STL"/>
+      <xs:enumeration value="HIGRAPH"/>
+      <xs:enumeration value="FLD"/>
+      <xs:enumeration value="LAD_CLASSIC"/>
+      <xs:enumeration value="FBD_CLASSIC"/>
+      <xs:enumeration value="LAD_IEC"/>
+      <xs:enumeration value="FBD_IEC"/>
+      <xs:enumeration value="F_LAD"/>
+      <xs:enumeration value="F_FBD"/>
+      <xs:enumeration value="F_LAD_LIB"/>
+      <xs:enumeration value="F_FBD_LIB"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- BlockType +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="BlockType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UDT"/>
+      <xs:enumeration value="OB"/>
+      <xs:enumeration value="DB"/>
+      <xs:enumeration value="SDB"/>
+      <xs:enumeration value="FC"/>
+      <xs:enumeration value="SFC"/>
+      <xs:enumeration value="FB"/>
+      <xs:enumeration value="SFB"/>
+      <xs:enumeration value="FBT"/>
+      <xs:enumeration value="SDT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Comment ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:complexType name="CommentType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="CommentString" type="CommentStringType" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ScopeType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="CommentStringType">
+    <xs:restriction base="xs:string"/>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ScopeType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="ScopeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="LABEL"/>
+      <xs:enumeration value="GLOBAL"/>
+      <xs:enumeration value="LOCAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- WidthType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="WidthType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Bit"/>
+      <xs:enumeration value="Byte"/>
+      <xs:enumeration value="Word"/>
+      <xs:enumeration value="Double"/>
+      <xs:enumeration value="Long"/>
+      <xs:enumeration value="Block"/>
+      <xs:enumeration value="Pointer"/>
+      <xs:enumeration value="Any"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- S7TypeType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="S7TypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Bool"/>
+      <xs:enumeration value="Byte"/>
+      <xs:enumeration value="Char"/>
+      <xs:enumeration value="Word"/>
+      <xs:enumeration value="Int"/>
+      <xs:enumeration value="DWord"/>
+      <xs:enumeration value="DInt"/>
+      <xs:enumeration value="Real"/>
+      <xs:enumeration value="Real"/>
+      <xs:enumeration value="TOD"/>
+      <xs:enumeration value="Time"/>
+      <xs:enumeration value="S5Time"/>
+      <xs:enumeration value="DateTime"/>
+      <xs:enumeration value="Array"/>
+      <xs:enumeration value="Struct"/>
+      <xs:enumeration value="String"/>
+      <xs:enumeration value="Pointer"/>
+      <xs:enumeration value="MULTI_FB"/>
+      <xs:enumeration value="ANY"/>
+      <xs:enumeration value="BLOCK_FB"/>
+      <xs:enumeration value="BLOCK_FC"/>
+      <xs:enumeration value="BLOCK_DB"/>
+      <xs:enumeration value="BLOCK_SDB"/>
+      <xs:enumeration value="MULTI_SFB"/>
+      <xs:enumeration value="Counter"/>
+      <xs:enumeration value="Timer"/>
+      <xs:enumeration value="BLOCK_UDT"/>
+      <xs:enumeration value="BLOCK_SFB"/>
+      <xs:enumeration value="BLOCK_SFC"/>
+      <xs:enumeration value="PARA"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- FormatType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="FormatType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="REAL"/>
+      <xs:enumeration value="BIN"/>
+      <xs:enumeration value="DEC "/>
+      <xs:enumeration value="POINTER "/>
+      <xs:enumeration value="CHAR_SEQUENCE "/>
+      <xs:enumeration value="DEC_SEQUENCE"/>
+      <xs:enumeration value="HEX"/>
+      <xs:enumeration value="S5COUNT"/>
+      <xs:enumeration value="TIME"/>
+      <xs:enumeration value="DATE"/>
+      <xs:enumeration value="TOD"/>
+      <xs:enumeration value="S5TIME"/>
+      <xs:enumeration value="BOOL"/>
+      <xs:enumeration value="OCT"/>
+      <xs:enumeration value="BCD"/>
+      <xs:enumeration value="DATE_TIME"/>
+      <xs:enumeration value="STRING"/>
+      <xs:enumeration value="ANY"/>
+      <xs:enumeration value="NUMBER"/>
+      <xs:enumeration value="CHAR"/>
+      <xs:enumeration value="HEX_SEQUENCE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- RangeType defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="RangeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="P"/>
+      <xs:enumeration value="Input"/>
+      <xs:enumeration value="Output"/>
+      <xs:enumeration value="Memory"/>
+      <xs:enumeration value="Data"/>
+      <xs:enumeration value="Xdata"/>
+      <xs:enumeration value="Local"/>
+      <xs:enumeration value="Timer"/>
+      <xs:enumeration value="Counter"/>
+      <xs:enumeration value="CONST"/>
+      <xs:enumeration value="SDB"/>
+      <xs:enumeration value="EXTERN"/>
+      <xs:enumeration value="FC"/>
+      <xs:enumeration value="FB"/>
+      <xs:enumeration value="SFC"/>
+      <xs:enumeration value="SFB"/>
+      <xs:enumeration value="OS"/>
+      <xs:enumeration value="OV"/>
+      <xs:enumeration value="GT"/>
+      <xs:enumeration value="LT"/>
+      <xs:enumeration value="UO"/>
+      <xs:enumeration value="PINPUT"/>
+      <xs:enumeration value="NE"/>
+      <xs:enumeration value="POUTPUT"/>
+      <xs:enumeration value="EQ"/>
+      <xs:enumeration value="GE"/>
+      <xs:enumeration value="LE"/>
+      <xs:enumeration value="REGISTER"/>
+      <xs:enumeration value="BIE"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- Mnemonic as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="MnemonicType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GERMAN"/>
+      <xs:enumeration value="INTERNATIONAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- OperationType as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="OperationType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="A"/>
+      <xs:enumeration value="AN"/>
+      <xs:enumeration value="O"/>
+      <xs:enumeration value="ON"/>
+      <xs:enumeration value="X"/>
+      <xs:enumeration value="XN"/>
+      <xs:enumeration value="S"/>
+      <xs:enumeration value="R"/>
+      <xs:enumeration value="ASS"/>
+      <xs:enumeration value="FP"/>
+      <xs:enumeration value="FN"/>
+      <xs:enumeration value="L"/>
+      <xs:enumeration value="T"/>
+      <xs:enumeration value="LAR1"/>
+      <xs:enumeration value="LAR2"/>
+      <xs:enumeration value="TAR1"/>
+      <xs:enumeration value="TAR2"/>
+      <xs:enumeration value="SV"/>
+      <xs:enumeration value="FR"/>
+      <xs:enumeration value="LC"/>
+      <xs:enumeration value="SA"/>
+      <xs:enumeration value="SS"/>
+      <xs:enumeration value="SE"/>
+      <xs:enumeration value="SI"/>
+      <xs:enumeration value="CD"/>
+      <xs:enumeration value="CU"/>
+      <xs:enumeration value="CALL"/>
+      <xs:enumeration value="UC"/>
+      <xs:enumeration value="C_DB"/>
+      <xs:enumeration value="CMP_I"/>
+      <xs:enumeration value="CMP_F"/>
+      <xs:enumeration value="CMP_D"/>
+      <xs:enumeration value="JU"/>
+      <xs:enumeration value="JC"/>
+      <xs:enumeration value="JO"/>
+      <xs:enumeration value="JZ"/>
+      <xs:enumeration value="JP"/>
+      <xs:enumeration value="JM"/>
+      <xs:enumeration value="JN"/>
+      <xs:enumeration value="JCN"/>
+      <xs:enumeration value="JCB"/>
+      <xs:enumeration value="JNB"/>
+      <xs:enumeration value="JBI"/>
+      <xs:enumeration value="JNBI"/>
+      <xs:enumeration value="JOS"/>
+      <xs:enumeration value="JUN"/>
+      <xs:enumeration value="JMZ"/>
+      <xs:enumeration value="JPZ"/>
+      <xs:enumeration value="LOOP"/>
+      <xs:enumeration value="JL"/>
+      <xs:enumeration value="ADD"/>
+      <xs:enumeration value="SLD"/>
+      <xs:enumeration value="SLW"/>
+      <xs:enumeration value="SRD"/>
+      <xs:enumeration value="SRW"/>
+      <xs:enumeration value="SVD"/>
+      <xs:enumeration value="SVW"/>
+      <xs:enumeration value="RLD"/>
+      <xs:enumeration value="RRD"/>
+      <xs:enumeration value="BLD"/>
+      <xs:enumeration value="ADDAR1"/>
+      <xs:enumeration value="ADDAR2"/>
+      <xs:enumeration value="INC"/>
+      <xs:enumeration value="DEC"/>
+      <xs:enumeration value="AW"/>
+      <xs:enumeration value="OW"/>
+      <xs:enumeration value="XOW"/>
+      <xs:enumeration value="AD"/>
+      <xs:enumeration value="OD"/>
+      <xs:enumeration value="XOD"/>
+      <xs:enumeration value="A_BRACK"/>
+      <xs:enumeration value="AN_BRACK"/>
+      <xs:enumeration value="O_BRACK"/>
+      <xs:enumeration value="ON_BRACK"/>
+      <xs:enumeration value="X_BRACK"/>
+      <xs:enumeration value="XN_BRACK"/>
+      <xs:enumeration value="INV_F"/>
+      <xs:enumeration value="NEG_F"/>
+      <xs:enumeration value="INV_D"/>
+      <xs:enumeration value="NEG_D"/>
+      <xs:enumeration value="NEG_G"/>
+      <xs:enumeration value="ABS_G"/>
+      <xs:enumeration value="SQRT"/>
+      <xs:enumeration value="SQR"/>
+      <xs:enumeration value="LN"/>
+      <xs:enumeration value="EXP"/>
+      <xs:enumeration value="SIN"/>
+      <xs:enumeration value="ASIN"/>
+      <xs:enumeration value="COS"/>
+      <xs:enumeration value="ACOS"/>
+      <xs:enumeration value="TAN"/>
+      <xs:enumeration value="ATAN"/>
+      <xs:enumeration value="RLDA"/>
+      <xs:enumeration value="RRDA"/>
+      <xs:enumeration value="DEF"/>
+      <xs:enumeration value="DUF"/>
+      <xs:enumeration value="DED"/>
+      <xs:enumeration value="DUD"/>
+      <xs:enumeration value="FDG"/>
+      <xs:enumeration value="GFD"/>
+      <xs:enumeration value="RND"/>
+      <xs:enumeration value="RND_M"/>
+      <xs:enumeration value="RND_P"/>
+      <xs:enumeration value="TRUNC"/>
+      <xs:enumeration value="FD"/>
+      <xs:enumeration value="TAW"/>
+      <xs:enumeration value="TAD"/>
+      <xs:enumeration value="TAR1_ACCU1"/>
+      <xs:enumeration value="TAR2_ACCU1"/>
+      <xs:enumeration value="LCC"/>
+      <xs:enumeration value="PLUS_F"/>
+      <xs:enumeration value="MINUS_F"/>
+      <xs:enumeration value="MUL_F"/>
+      <xs:enumeration value="DIV_F"/>
+      <xs:enumeration value="PLUS_D"/>
+      <xs:enumeration value="MINUS_D"/>
+      <xs:enumeration value="MUL_D"/>
+      <xs:enumeration value="DIV_D"/>
+      <xs:enumeration value="MOD_D"/>
+      <xs:enumeration value="L_DBLG"/>
+      <xs:enumeration value="L_DXLG"/>
+      <xs:enumeration value="L_DBNO"/>
+      <xs:enumeration value="L_DXNO"/>
+      <xs:enumeration value="PLUS_G"/>
+      <xs:enumeration value="MINUS_G"/>
+      <xs:enumeration value="MUL_G"/>
+      <xs:enumeration value="DIV_G"/>
+      <xs:enumeration value="TAK"/>
+      <xs:enumeration value="LEAVE"/>
+      <xs:enumeration value="PUSH"/>
+      <xs:enumeration value="POP"/>
+      <xs:enumeration value="SET"/>
+      <xs:enumeration value="NEG"/>
+      <xs:enumeration value="CLR"/>
+      <xs:enumeration value="BEC"/>
+      <xs:enumeration value="BRACKET"/>
+      <xs:enumeration value="TCC"/>
+      <xs:enumeration value="SAVE"/>
+      <xs:enumeration value="BE"/>
+      <xs:enumeration value="NOP_0"/>
+      <xs:enumeration value="NOP_1"/>
+      <xs:enumeration value="MCR_BRACK"/>
+      <xs:enumeration value="BRACK_MCR"/>
+      <xs:enumeration value="MCRA"/>
+      <xs:enumeration value="MCRD"/>
+      <xs:enumeration value="ENT"/>
+      <xs:enumeration value="LAR1_ACCU1"/>
+      <xs:enumeration value="LAR1_AR2"/>
+      <xs:enumeration value="LAR2_ACCU1"/>
+      <xs:enumeration value="TAR1_AR2"/>
+      <xs:enumeration value="TAR"/>
+      <xs:enumeration value="CDB"/>
+      <xs:enumeration value="COMMENT"/>
+      <xs:enumeration value="EMPTY_LINE"/>
+      <xs:enumeration value="PSEUDO"/>
+      <xs:enumeration value="MOVE"/>
+      <xs:enumeration value="MOVE_BLOCK"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- AccessType as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="AccessType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="UNDEF"/>
+      <xs:enumeration value="DIRECT"/>
+      <xs:enumeration value="PARA_W"/>
+      <xs:enumeration value="PARA_D"/>
+      <xs:enumeration value="RI_E1"/>
+      <xs:enumeration value="RI_E2"/>
+      <xs:enumeration value="RI_1"/>
+      <xs:enumeration value="RI_2"/>
+      <xs:enumeration value="MI_MD"/>
+      <xs:enumeration value="MI_DD"/>
+      <xs:enumeration value="MI_DXD"/>
+      <xs:enumeration value="MI_LD"/>
+      <xs:enumeration value="MI_MW"/>
+      <xs:enumeration value="MI_DW"/>
+      <xs:enumeration value="MI_DXW"/>
+      <xs:enumeration value="MI_LW"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- CallPropertyType as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="CallPropertyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="NUM_PARAS"/>
+      <xs:enumeration value="FORMAL_SYMBOL"/>
+      <xs:enumeration value="MISSING"/>
+      <xs:enumeration value="TIMESTAMP"/>
+      <xs:enumeration value="TYPE_INCOMPATIBLE"/>
+      <xs:enumeration value="TYPE_CHANGED"/>
+      <xs:enumeration value="UDA_CHANGED"/>
+      <xs:enumeration value="VALID"/>
+      <xs:enumeration value="SYMBOL_CHANGED"/>
+      <xs:enumeration value="SYMBOL_DB_CHANGED"/>
+      <xs:enumeration value="UDT_CONFLICT"/>
+      <xs:enumeration value="STAT_CONFLICT"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- LinePropertyType as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="LinePropertyType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Valid"/>
+      <xs:enumeration value="SymTypeMismatch"/>
+      <xs:enumeration value="SymInvalid"/>
+      <xs:enumeration value="SymDeleted"/>
+      <xs:enumeration value="SymChanged"/>
+      <xs:enumeration value="AllWrong"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- OperandState as defined in Interfaces ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+  <xs:simpleType name="OperandState">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None"/>
+      <xs:enumeration value="Valid"/>
+      <xs:enumeration value="NewSymbol"/>
+      <xs:enumeration value="Link"/>
+      <xs:enumeration value="Warning"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

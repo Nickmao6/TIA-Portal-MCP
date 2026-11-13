@@ -1,0 +1,33 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    {
+      "title": "MCP生成: MOVE 传送值",
+      "rungs": [
+        [
+          { "k": "no", "tag": "启动按钮" },
+          { "k": "MOVE", "in": "源数据", "outs": ["搬运目标"] }
+        ]
+      ]
+    },
+    {
+      "title": "MCP生成: SR 置位复位(S优先)",
+      "rungs": [
+        [
+          { "k": "SR", "set": "报警置位", "reset": "报警复位", "q": "报警状态" }
+        ]
+      ]
+    },
+    {
+      "title": "MCP生成: RS 复位置位(R优先)",
+      "rungs": [
+        [
+          { "k": "RS", "set": "启动按钮", "reset": "停止按钮", "q": "运行状态" }
+        ]
+      ]
+    }
+  ],
+  "tags": {
+    "运行状态": "%M20.3"
+  }
+}

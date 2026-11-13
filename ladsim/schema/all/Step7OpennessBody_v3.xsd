@@ -1,0 +1,8 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Copyright © Siemens AG 2008-2018. All rights reserved. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="SW.PlcBlocks.STL_v2.xsd"/>
+	<xs:include schemaLocation="SW.PlcBlocks.LADFBD_v2.xsd"/>
+	<xs:include schemaLocation="SW.PlcBlocks.SCL.xsd"/>
+	<xs:include schemaLocation="SW.PlcBlocks.Graph_v3.xsd"/>
+</xs:schema>

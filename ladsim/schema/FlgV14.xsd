@@ -1,0 +1,240 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © Siemens AG 2008-2016. All rights reserved. -->
+<xs:schema 
+  elementFormDefault="qualified"
+  xmlns="http://www.siemens.com/automation/2015/FunctionLadderDiagram"
+  targetNamespace="http://www.siemens.com/automation/2015/FunctionLadderDiagram"
+  xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Types.xsd">
+    <xs:annotation>
+      <xs:documentation>The basic types.</xs:documentation>
+    </xs:annotation>
+  </xs:include>
+  <xs:element name="FlgNet" type="FlgNetType"/>
+  <xs:complexType name="FlgNetType">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="AbsoluteReference" type="FlgNetTypeAbsoluteReference" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Labels" type="LabelsType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Parts" type="PartsType" minOccurs="0" maxOccurs="1"/>
+      <xs:element name="Wires" type="WiresType" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="Lang" type="LanguageType" use="required"/>
+    <xs:attribute name="Version" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <!-- Only the hilighted number is valid, all lower numbers are 'developer compatibilty versions'. -->
+      <xs:enumeration value="14.0.0.2"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Routed" type="xs:boolean" use="optional" default="false"/>
+    <xs:attribute name="UId" type="xs:integer" use="optional" default="0"/>
+    <xs:attribute name="RefId" type="RefIdType" use="optional" default="0"/>
+  </xs:complexType>
+
+  <xs:complexType name="FlgNetTypeAbsoluteReference">
+    <xs:attribute name="Name" type="xs:string" use="optional" default=""/>
+  </xs:complexType>
+
+  <xs:complexType name="LabelsType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="ORef" type="ORefType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartsType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Part" type="PartType"/>
+      <xs:element name="LRef" type="LRefType"/>
+      <xs:element name="CRef" type="CRefType"/>
+      <xs:element name="ORef" type="ORefType"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="WiresType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Wire" type="WireType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartType">
+    <xs:annotation>
+      <xs:documentation>The order has to be ViewInfo, Invisible, Negated. New PartTypes must be added before ViewInfo</xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:annotation>
+        <xs:documentation>The child nodes of the FLG and FLD have been writen in different order.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="AutomaticTyped" type="AutomaticTypedType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="TemplateValue" type="TemplateValueType" minOccurs="0" maxOccurs="unbounded" />
+      <xs:element name="Equation" type="EquationType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>The equation of this part. This is only used for the Calculate box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A negated pin of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AbsoluteReference" type="PartTypeAbsoluteReference" minOccurs="0" maxOccurs="1"/>
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="Gate" type="xs:string" use="required"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional" default="0"/>
+    <xs:attribute name="DisableENO" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>If this flag is set to true the ENO generation for this part is disabled.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+
+  <xs:complexType name="PartTypeAbsoluteReference">
+    <xs:attribute name="DisplayName" type="xs:string" use="optional" default=""/>
+    <xs:attribute name="DictString" type="xs:string" use="optional" default=""/>
+  </xs:complexType>
+  
+  <xs:complexType name="ORefType">
+    <xs:sequence>
+      <xs:element name="AbsoluteReference" type="ORefTypeAbsoluteReference" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="RefId" type="RefIdType" use="optional" default="0"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional" default="0"/>
+  </xs:complexType>
+  <xs:complexType name="ORefTypeAbsoluteReference">
+    <xs:attribute name="DisplayName" type="xs:string" use="optional" default=""/>
+    <xs:attribute name="DictString" type="xs:string" use="optional" default=""/>
+  </xs:complexType>
+  <xs:complexType name="CRefType">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="CodeBlock" type="ORefType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>CodeBlock, but if the call is not complete we might have none at all.	</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Instance" type="ORefType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>LocalBlock and DataBlock, but if the call is not complete we might have none at all.	</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A negated pin of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AbsoluteReference" type="CRefTypeAbsoluteReference" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="RefId" type="RefIdType" use="required"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional" default="0"/>
+  </xs:complexType>
+  <xs:complexType name="CRefTypeAbsoluteReference">
+    <xs:attribute name="DisplayName" type="xs:string" use="optional" default="" />
+    <xs:attribute name="DictString" type="xs:string" use="optional" default="" />
+  </xs:complexType>
+  <xs:complexType name="LRefType">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:annotation>
+        <xs:documentation>The child nodes of the FLG and FLD have been writen in different order.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="Instance" type="ORefType" minOccurs="0" maxOccurs="1">
+        <xs:annotation>
+          <xs:documentation>ORef for the DataBlock or Multiinstance but there are also LRefs without</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>A negated pin of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="AbsoluteReference" type="LRefTypeAbsoluteReference" minOccurs="0" maxOccurs="1" />
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="RefId" type="RefIdType" use="required"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional" default="0"/>
+    <xs:attribute name="EN" type="xs:boolean" use="optional" default="true"/>
+    <xs:attribute name="ENO" type="xs:boolean" use="optional" default="true"/>
+    <xs:attribute name="DisableENO" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>If this flag is set to true the ENO generation for this part is disabled.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="LRefTypeAbsoluteReference">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="TemplateValue" type="TemplateValueType" minOccurs="0" maxOccurs="unbounded" />
+    </xs:sequence>
+    <xs:attribute name="DictString" type="xs:string" use="optional" default=""/>
+    <xs:attribute name="Name" type="xs:string" use="optional" default=""/>
+  </xs:complexType>
+  <xs:complexType name="NegType">
+    <xs:annotation>
+      <xs:documentation>Either PinName or ParaNum has to be provided</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="PinName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The name of the negated pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="WireType">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Powerrail"/>
+        <xs:element name="PCon" type="PConType"/>
+        <xs:element name="OCon" type="OConType"/>
+        <xs:element name="Openbranch"/>
+        <xs:element name="AbsoluteReference" type="WireTypeAbsoluteReference">
+          <xs:annotation>
+            <xs:documentation>may only occure once</xs:documentation>
+          </xs:annotation>
+        </xs:element>
+      </xs:choice>
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="WireTypeAbsoluteReference">
+  </xs:complexType>
+  <xs:complexType name="OConType">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="AbsoluteReference" type="OConTypeAbsoluteReference"/>
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional" default="0"/>
+  </xs:complexType>
+  <xs:complexType name="OConTypeAbsoluteReference">
+    <xs:attribute name="DictString" type="xs:string" use="optional" default=""/>
+  </xs:complexType>
+  <xs:complexType name="PConType">
+    <xs:sequence minOccurs="0" maxOccurs="1">
+      <xs:element name="AbsoluteReference" type="PConTypeAbsoluteReference" />
+    </xs:sequence>
+    <xs:attribute name="UId" type="xs:integer" use="required"/>
+    <xs:attribute name="PinName" type="xs:string" use="required"/>
+  </xs:complexType>
+  <xs:complexType name="PConTypeAbsoluteReference">
+  </xs:complexType>
+  <xs:complexType name="EquationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Valid" type="xs:boolean" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="AutomaticTypedType">
+    <xs:attribute name="Name" type="xs:string"/>
+  </xs:complexType>
+  <xs:complexType name="TemplateValueType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Name" type="xs:string" use="required"/>
+        <xs:attribute name="Type" type="TemplateValueTypeDef" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:simpleType name="TemplateValueTypeDef">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Type"/>
+      <xs:enumeration value="Operation"/>
+      <xs:enumeration value="Cardinality"/>
+    </xs:restriction>
+  </xs:simpleType>
+</xs:schema>

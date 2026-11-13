@@ -1,0 +1,252 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- Mit XMLSpy v2011 rel. 2 (http://www.altova.com) von Seubelt (Siemens AG) bearbeitet -->
+<!-- Mit XMLSpy v2006 rel. 3 sp1 bearbeitet (http://www.altova.com) von Seubelt (Siemens AG) -->
+<!-- edited with XMLSpy v2006 sp1 U (http://www.altova.com) by Seubelt (Siemens AG) -->
+<xs:schema xmlns="http://www.siemens.com/automation/2010/AwlScl" xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:awlscl="http://www.siemens.com/automation/2010/IECPL" targetNamespace="http://www.siemens.com/automation/2010/IECPL" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- import types format -->
+	<!--<xs:include schemaLocation="SclTypes.xsd"/> -->
+	<!-- ?????????????? -->
+	<!-- ++++++ ROOT- Element ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:element name="Statements" type="awlscl:statementlist_t"/>
+  <!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Token Base       +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ++++++++ -->
+	<xs:complexType name="TokenBase_t">
+		<xs:attribute name="NumBLs" type="xs:int" use="optional"/>
+		<xs:attribute name="NumCRs" type="xs:int" use="optional"/>
+		<xs:attribute name="DispName" type="xs:string" use="optional"/>
+		<xs:attribute name="Color" type="xs:int" use="optional"/>
+		<xs:attribute name="Style" type="xs:int" use="optional"/>
+		<xs:attribute name="UId" type="xs:int"/>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Comment keywords ++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:simpleType name="ComOpenKeywords_tt">
+		<xs:union memberTypes="awlscl:BCOpen_t"/>
+	</xs:simpleType>
+	<xs:simpleType name="ComCloseKeywords_tt">
+		<xs:union memberTypes="awlscl:BCClose_t"/>
+	</xs:simpleType>
+	<xs:simpleType name="LComOpenKeywords_tt">
+		<xs:union memberTypes="awlscl:LCOpen_t"/>
+	</xs:simpleType>
+	<xs:simpleType name="BCOpen_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="(*"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BCClose_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="*)"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LCOpen_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="//"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- BC    BlockComment  +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ++++++++ -->
+	<xs:complexType name="BComment_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:TokenBase_t">
+				<xs:attribute name="DictId" type="xs:int" use="optional"/>
+				<xs:attribute name="BCStart" type="awlscl:ComOpenKeywords_tt" use="optional"/>
+				<xs:attribute name="BCEnd" type="awlscl:ComCloseKeywords_tt" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- LC   LineComment   ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ ++++++++ -->
+	<xs:complexType name="LComment_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:TokenBase_t">
+				<xs:attribute name="DictId" type="xs:int" use="optional"/>
+				<xs:attribute name="LC" type="awlscl:LComOpenKeywords_tt" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- Token            +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="Token_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:TokenBase_t">
+				<xs:attribute name="RefId" type="xs:int"/>
+				<xs:attribute name="Kw" type="xs:string" use="optional"/>
+				<xs:attribute name="Op" type="xs:string" use="optional"/>
+				<xs:attribute name="Type" type="awlscl:token_type" use="optional"/>
+				<xs:attribute name="TokenProperty" type="xs:int" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- UserToken     +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="UserToken_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:TokenBase_t">
+				<xs:attribute name="Type" type="awlscl:token_type" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:simpleType name="token_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Whitespace"/>
+			<xs:enumeration value="CommentBlock"/>
+			<xs:enumeration value="LineComment"/>
+			<xs:enumeration value="Identifier"/>
+			<xs:enumeration value="StructuringKeyword"/>
+			<xs:enumeration value="ReservedWord"/>
+			<xs:enumeration value="LanguageOperation"/>
+			<xs:enumeration value="StandardFunctions"/>
+			<xs:enumeration value="Skz"/>
+			<xs:enumeration value="Constant"/>
+			<xs:enumeration value="AbsoluteOperand"/>
+			<xs:enumeration value="LabelTarget"/>
+			<xs:enumeration value="Operation"/>
+			<xs:enumeration value="PartialKeyword"/>
+			<xs:enumeration value="LinkingWord"/>
+			<xs:enumeration value="Unknown"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- statementlist +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="statementlist_t">    
+		<xs:sequence minOccurs="0" maxOccurs="unbounded">
+			<xs:element name="Statement" type="awlscl:statement_t"/>
+		</xs:sequence>
+    <xs:attribute name="Version">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="\d+\.\d+\.\d+\.\d+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- statement ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="statement_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:Token_t">
+				<xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Token" type="awlscl:Token_t"/>
+						<xs:element name="UserToken" type="awlscl:UserToken_t"/>
+						<xs:element name="Statement" type="awlscl:statement_t"/>
+						<xs:element name="Expression" type="awlscl:expression_t"/>
+						<xs:element name="OpdAccess" type="awlscl:OpdAccess_t"/>
+						<xs:element name="CallInfo" type="awlscl:callinfo_t"/>
+						<xs:element name="Label" type="awlscl:label_t"/>
+						<xs:element name="BC" type="awlscl:BComment_t"/>
+						<xs:element name="LC" type="awlscl:LComment_t"/>
+					</xs:choice>
+					<xs:element name="FinishKw" type="awlscl:Token_t" minOccurs="0"/>
+				</xs:sequence>
+				<xs:attribute name="SType" type="awlscl:statement_type"/>
+				<xs:attribute name="FPNum" type="xs:int" use="optional"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- expression  ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="expression_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:Token_t">
+				<xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="Token" type="awlscl:Token_t"/>
+						<xs:element name="UserToken" type="awlscl:UserToken_t"/>
+						<xs:element name="OpdAccess" type="awlscl:OpdAccess_t"/>
+					</xs:choice>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- label   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="label_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:Token_t">
+				<xs:sequence>
+					<xs:element name="OpdAccess" type="awlscl:OpdAccess_t"/>
+					<xs:element name="Token" type="awlscl:Token_t"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:simpleType name="statement_type">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="simple"/>
+			<xs:enumeration value="assignment"/>
+			<xs:enumeration value="subprogram_control"/>
+			<xs:enumeration value="selection"/>
+			<xs:enumeration value="iteration"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TemplateType_T">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="Cardinality"/>
+			<xs:enumeration value="Type"/>
+			<xs:enumeration value="Operation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="TemplateParameter_T">
+		<xs:attribute name="Type" type="awlscl:TemplateType_T"/>
+		<xs:attribute name="Name" type="xs:token"/>
+		<xs:attribute name="Value" type="xs:token"/>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- CallInfo    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="callinfo_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:Token_t">
+				<xs:sequence>
+					<xs:sequence minOccurs="0">
+						<xs:element name="TemplateParameter" type="awlscl:TemplateParameter_T" maxOccurs="unbounded"/>
+						<xs:sequence minOccurs="0">
+							<xs:element name="Token" type="awlscl:Token_t"/>
+							<xs:element name="TemplateParameter" type="awlscl:TemplateParameter_T" maxOccurs="unbounded"/>
+						</xs:sequence>
+					</xs:sequence>
+					<xs:choice minOccurs="0" maxOccurs="unbounded">
+						<xs:element name="ParaExpression" type="awlscl:statement_t"/>
+					</xs:choice>
+				</xs:sequence>
+				<xs:attribute name="CallProperty"/>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- OpdAccess   +++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<xs:complexType name="OpdAccess_t">
+		<xs:complexContent>
+			<xs:extension base="awlscl:Token_t">
+				<xs:sequence minOccurs="0">
+					<xs:element name="IdentInformation" type="awlscl:IdentInformation_t"/>
+				</xs:sequence>
+			</xs:extension>
+		</xs:complexContent>
+	</xs:complexType>
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!--IdentInformation    ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++ -->
+	<!-- ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++-->
+	<xs:complexType name="IdentInformation_t">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element name="UserToken" type="awlscl:UserToken_t"/>
+			<xs:element name="BC" type="awlscl:BComment_t"/>
+			<xs:element name="LC" type="awlscl:LComment_t"/>
+		</xs:choice>
+	</xs:complexType>
+</xs:schema>

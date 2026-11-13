@@ -1,0 +1,17 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    { "title": "MCP生成: CONV 类型转换 Int -> DInt",
+      "rungs": [ [ { "k": "no", "tag": "启动按钮" },
+                   { "k": "CONV", "src_type": "Int", "dest_type": "DInt",
+                     "in": "计算输入1", "out": "转换结果" } ] ] },
+    { "title": "MCP生成: CONV 类型转换 DInt -> Real",
+      "rungs": [ [ { "k": "no", "tag": "启动按钮" },
+                   { "k": "CONV", "src_type": "DInt", "dest_type": "Real",
+                     "in": "转换结果", "out": "转换结果2" } ] ] }
+  ],
+  "tags": {
+    "转换结果": "%MD94",
+    "转换结果2": "%MD98"
+  }
+}

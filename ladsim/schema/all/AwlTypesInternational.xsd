@@ -1,0 +1,1091 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" attributeFormDefault="unqualified">
+<xs:include schemaLocation="AwlTypes.xsd"/>
+	<xs:simpleType name="A_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="U"/>
+			<xs:enumeration value="1"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UN"/>
+			<xs:enumeration value="2"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="O_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="O"/>
+			<xs:enumeration value="3"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ON_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ON"/>
+			<xs:enumeration value="4"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="X_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="X"/>
+			<xs:enumeration value="5"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="XN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="XN"/>
+			<xs:enumeration value="6"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="S_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="S"/>
+			<xs:enumeration value="7"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="R"/>
+			<xs:enumeration value="8"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Assign_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="="/>
+			<xs:enumeration value="9"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Rise_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FP"/>
+			<xs:enumeration value="11"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Fall_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FN"/>
+			<xs:enumeration value="12"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="16"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="T_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="17"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LAR1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LAR1"/>
+			<xs:enumeration value="18"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LAR2_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LAR2"/>
+			<xs:enumeration value="19"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAR1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR1"/>
+			<xs:enumeration value="20"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAR2_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR2"/>
+			<xs:enumeration value="21"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Extend_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SV"/>
+			<xs:enumeration value="39"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Free_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="FR"/>
+			<xs:enumeration value="41"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LC"/>
+			<xs:enumeration value="42"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OffDelay_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SA"/>
+			<xs:enumeration value="43"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Retentive_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SS"/>
+			<xs:enumeration value="44"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OnDelay_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SE"/>
+			<xs:enumeration value="45"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="Pulse_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SI"/>
+			<xs:enumeration value="46"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ZR"/>
+			<xs:enumeration value="59"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CU_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ZV"/>
+			<xs:enumeration value="60"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CALL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CALL"/>
+			<xs:enumeration value="64"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CC"/>
+			<xs:enumeration value="65"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UC"/>
+			<xs:enumeration value="66"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OPEN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AUF"/>
+			<xs:enumeration value="80"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OPEN_DI_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="AUFDI"/>
+			<xs:enumeration value="81"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CMP_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="==I"/>
+			<xs:enumeration value="103"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CMP_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="==R"/>
+			<xs:enumeration value="104"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CMP_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="==D"/>
+			<xs:enumeration value="105"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JU_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPA"/>
+			<xs:enumeration value="112"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPB"/>
+			<xs:enumeration value="113"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JO_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPO"/>
+			<xs:enumeration value="114"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JZ_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPZ"/>
+			<xs:enumeration value="115"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JP_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPP"/>
+			<xs:enumeration value="116"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JM_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPM"/>
+			<xs:enumeration value="117"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPN"/>
+			<xs:enumeration value="118"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JCN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPBN"/>
+			<xs:enumeration value="119"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JCB_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPBB"/>
+			<xs:enumeration value="120"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JNB_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPBNB"/>
+			<xs:enumeration value="121"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JBI_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPBI"/>
+			<xs:enumeration value="122"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JNBI_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPBIN"/>
+			<xs:enumeration value="123"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JOS_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPS"/>
+			<xs:enumeration value="124"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JUN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPU"/>
+			<xs:enumeration value="125"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JMZ_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPMZ"/>
+			<xs:enumeration value="126"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JPZ_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPPZ"/>
+			<xs:enumeration value="127"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LOOP_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LOOP"/>
+			<xs:enumeration value="128"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="JL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SPL"/>
+			<xs:enumeration value="129"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+"/>
+			<xs:enumeration value="131"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SLD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SLD"/>
+			<xs:enumeration value="134"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SLW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SLW"/>
+			<xs:enumeration value="135"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SRD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SRD"/>
+			<xs:enumeration value="136"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SRW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SRW"/>
+			<xs:enumeration value="137"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SRSD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SSD"/>
+			<xs:enumeration value="138"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SRSW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SSI"/>
+			<xs:enumeration value="139"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RLD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RLD"/>
+			<xs:enumeration value="140"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RRD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RRD"/>
+			<xs:enumeration value="141"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BLD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BLD"/>
+			<xs:enumeration value="142"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADDAR1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+AR1"/>
+			<xs:enumeration value="143"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADDAR2_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+AR2"/>
+			<xs:enumeration value="144"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="INC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INC"/>
+			<xs:enumeration value="145"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DEC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DEC"/>
+			<xs:enumeration value="146"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UW"/>
+			<xs:enumeration value="147"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OW"/>
+			<xs:enumeration value="148"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="XW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="XOW"/>
+			<xs:enumeration value="149"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UD"/>
+			<xs:enumeration value="150"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OD"/>
+			<xs:enumeration value="151"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="XD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="XOD"/>
+			<xs:enumeration value="152"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="A_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="U("/>
+			<xs:enumeration value="153"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AN_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UN("/>
+			<xs:enumeration value="154"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="O_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="O("/>
+			<xs:enumeration value="155"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ON_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ON("/>
+			<xs:enumeration value="165"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="X_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="X("/>
+			<xs:enumeration value="168"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="XN_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="XN("/>
+			<xs:enumeration value="169"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="INV_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INVI"/>
+			<xs:enumeration value="176"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NEG_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEGI"/>
+			<xs:enumeration value="177"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="INV_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="INVD"/>
+			<xs:enumeration value="178"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NEG_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEGD"/>
+			<xs:enumeration value="179"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NEG_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NEGR"/>
+			<xs:enumeration value="180"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ABS_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ABS"/>
+			<xs:enumeration value="181"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SQRT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SQRT"/>
+			<xs:enumeration value="182"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SQR_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SQR"/>
+			<xs:enumeration value="183"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LN"/>
+			<xs:enumeration value="184"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="EXP_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="EXP"/>
+			<xs:enumeration value="185"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SIN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SIN"/>
+			<xs:enumeration value="186"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ASIN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ASIN"/>
+			<xs:enumeration value="187"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="COS_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="COS"/>
+			<xs:enumeration value="188"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ACOS_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ACOS"/>
+			<xs:enumeration value="189"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAN"/>
+			<xs:enumeration value="190"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ATAN_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ATAN"/>
+			<xs:enumeration value="191"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RLDA_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RLDA"/>
+			<xs:enumeration value="192"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RRDA_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RRDA"/>
+			<xs:enumeration value="193"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BTI_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BTI"/>
+			<xs:enumeration value="194"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ITB_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ITB"/>
+			<xs:enumeration value="195"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BTD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BTD"/>
+			<xs:enumeration value="196"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DTB_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DTB"/>
+			<xs:enumeration value="197"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DTR_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="DTR"/>
+			<xs:enumeration value="198"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RTD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RTD"/>			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RND_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RND"/>
+			<xs:enumeration value="200"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RND_M_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RND-"/>
+			<xs:enumeration value="201"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="RND_P_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="RND+"/>
+			<xs:enumeration value="202"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TRUNC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TRUNC"/>
+			<xs:enumeration value="203"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ITD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ITD"/>
+			<xs:enumeration value="204"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CAW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAW"/>
+			<xs:enumeration value="205"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CAD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAD"/>
+			<xs:enumeration value="206"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAR1_ACCU1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR1"/>
+			<xs:enumeration value="207"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAR2_ACCU1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR2"/>
+			<xs:enumeration value="208"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_STW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="209"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADD_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+I"/>
+			<xs:enumeration value="210"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SUB_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="-I"/>
+			<xs:enumeration value="211"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MUL_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="*I"/>
+			<xs:enumeration value="212"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DIV_I_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="/I"/>
+			<xs:enumeration value="213"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADD_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+D"/>
+			<xs:enumeration value="214"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SUB_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="-D"/>
+			<xs:enumeration value="215"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MUL_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="*D"/>
+			<xs:enumeration value="216"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DIV_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="/D"/>
+			<xs:enumeration value="217"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MOD_D_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MOD"/>
+			<xs:enumeration value="218"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_DBLG_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="219"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_DILG_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="220"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_DBNO_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="221"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="L_DXNO_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="L"/>
+			<xs:enumeration value="222"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ADD_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="+R"/>
+			<xs:enumeration value="223"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SUB_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="-R"/>
+			<xs:enumeration value="224"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MUL_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="*R"/>
+			<xs:enumeration value="225"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="DIV_R_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="/R"/>
+			<xs:enumeration value="226"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CAC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAK"/>
+			<xs:enumeration value="227"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LEAVE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LEAVE"/>
+			<xs:enumeration value="228"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="PUSH_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="PUSH"/>
+			<xs:enumeration value="229"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="POP_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="POP"/>
+			<xs:enumeration value="230"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SET_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SET"/>
+			<xs:enumeration value="231"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NEG_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOT"/>
+			<xs:enumeration value="232"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CLR_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="CLR"/>
+			<xs:enumeration value="233"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BEC_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BEB"/>
+			<xs:enumeration value="234"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BRACKET_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=")"/>
+			<xs:enumeration value="235"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="T_STW_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="T"/>
+			<xs:enumeration value="236"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="SAVE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SAVE"/>
+			<xs:enumeration value="237"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BE"/>
+			<xs:enumeration value="238"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NOP_0_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOP"/>
+			<xs:enumeration value="239"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NOP_1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="NOP"/>
+			<xs:enumeration value="240"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MCR_BRACK_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MCR("/>
+			<xs:enumeration value="241"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BRACK_MCR_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value=")MCR"/>
+			<xs:enumeration value="242"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MCRA_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MCRA"/>
+			<xs:enumeration value="243"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="MCRD_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MCRD"/>
+			<xs:enumeration value="244"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="ENT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ENT"/>
+			<xs:enumeration value="245"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LAR1_ACCU1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LAR1"/>
+			<xs:enumeration value="246"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LAR1_AR2_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LAR1"/>
+			<xs:enumeration value="247"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LAR2_ACCU1_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="LAR2"/>
+			<xs:enumeration value="248"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="TAR1_AR2_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR1"/>
+			<xs:enumeration value="249"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CAR_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TAR"/>
+			<xs:enumeration value="250"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CDB_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="TDB"/>
+			<xs:enumeration value="251"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BEA_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BEA"/>
+			<xs:enumeration value="259"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LE_INT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;=I"/>
+			<xs:enumeration value="88"/>			
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GE_INT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;=I"/>
+			<xs:enumeration value="94"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NE_INT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;&gt;I"/>
+			<xs:enumeration value="91"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LT_INT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;I"/>
+			<xs:enumeration value="97"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GT_INT_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;I"/>
+			<xs:enumeration value="100"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LE_DOUBLE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;=D"/>
+			<xs:enumeration value="90"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GE_DOUBLE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;=D"/>
+			<xs:enumeration value="96"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NE_DOUBLE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;&gt;D"/>
+			<xs:enumeration value="93"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LT_DOUBLE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;D"/>
+			<xs:enumeration value="99"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GT_DOUBLE_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;D"/>
+			<xs:enumeration value="102"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LE_REAL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;=R"/>
+			<xs:enumeration value="89"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GE_REAL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;=R"/>
+			<xs:enumeration value="95"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NE_REAL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;&gt;R"/>
+			<xs:enumeration value="92"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LT_REAL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;R"/>
+			<xs:enumeration value="98"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GT_REAL_Operand_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;R"/>
+			<xs:enumeration value="101"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="AWLOperands_tt">
+		<xs:union memberTypes="A_Operand_t AN_Operand_t O_Operand_t ON_Operand_t X_Operand_t XN_Operand_t S_Operand_t R_Operand_t Assign_Operand_t Rise_Operand_t Fall_Operand_t L_Operand_t T_Operand_t LAR1_Operand_t LAR2_Operand_t TAR1_Operand_t TAR2_Operand_t Extend_Operand_t Free_Operand_t LC_Operand_t OffDelay_Operand_t Retentive_Operand_t OnDelay_Operand_t Pulse_Operand_t CD_Operand_t CU_Operand_t CALL_Operand_t CC_Operand_t UC_Operand_t OPEN_Operand_t OPEN_DI_Operand_t CMP_I_Operand_t CMP_R_Operand_t CMP_D_Operand_t JU_Operand_t JC_Operand_t JO_Operand_t JZ_Operand_t JP_Operand_t JM_Operand_t JN_Operand_t JCN_Operand_t JCB_Operand_t JNB_Operand_t JBI_Operand_t JNBI_Operand_t JOS_Operand_t JUN_Operand_t JMZ_Operand_t JPZ_Operand_t LOOP_Operand_t JL_Operand_t ADD_Operand_t SLD_Operand_t SLW_Operand_t SRD_Operand_t SRW_Operand_t SRSD_Operand_t SRSW_Operand_t RLD_Operand_t RRD_Operand_t BLD_Operand_t ADDAR1_Operand_t ADDAR2_Operand_t INC_Operand_t DEC_Operand_t AW_Operand_t OW_Operand_t XW_Operand_t AD_Operand_t OD_Operand_t XD_Operand_t A_BRACK_Operand_t AN_BRACK_Operand_t O_BRACK_Operand_t ON_BRACK_Operand_t X_BRACK_Operand_t XN_BRACK_Operand_t INV_I_Operand_t NEG_I_Operand_t INV_D_Operand_t NEG_D_Operand_t NEG_R_Operand_t ABS_R_Operand_t SQRT_Operand_t SQR_Operand_t LN_Operand_t EXP_Operand_t SIN_Operand_t ASIN_Operand_t COS_Operand_t ACOS_Operand_t TAN_Operand_t ATAN_Operand_t RLDA_Operand_t RRDA_Operand_t BTI_Operand_t ITB_Operand_t BTD_Operand_t DTB_Operand_t DTR_Operand_t RTD_Operand_t RND_Operand_t RND_M_Operand_t RND_P_Operand_t TRUNC_Operand_t ITD_Operand_t CAW_Operand_t CAD_Operand_t TAR1_ACCU1_Operand_t TAR2_ACCU1_Operand_t L_STW_Operand_t ADD_I_Operand_t SUB_I_Operand_t MUL_I_Operand_t DIV_I_Operand_t ADD_D_Operand_t SUB_D_Operand_t MUL_D_Operand_t DIV_D_Operand_t MOD_D_Operand_t L_DBLG_Operand_t L_DILG_Operand_t L_DBNO_Operand_t L_DXNO_Operand_t ADD_R_Operand_t SUB_R_Operand_t MUL_R_Operand_t DIV_R_Operand_t CAC_Operand_t LEAVE_Operand_t PUSH_Operand_t POP_Operand_t SET_Operand_t NEG_Operand_t CLR_Operand_t BEC_Operand_t BRACKET_Operand_t T_STW_Operand_t SAVE_Operand_t BE_Operand_t NOP_0_Operand_t NOP_1_Operand_t MCR_BRACK_Operand_t BRACK_MCR_Operand_t MCRA_Operand_t MCRD_Operand_t ENT_Operand_t LAR1_ACCU1_Operand_t LAR1_AR2_Operand_t LAR2_ACCU1_Operand_t TAR1_AR2_Operand_t CAR_Operand_t CDB_Operand_t BEA_Operand_t LE_INT_Operand_t GE_INT_Operand_t NE_INT_Operand_t LT_INT_Operand_t GT_INT_Operand_t LE_DOUBLE_Operand_t GE_DOUBLE_Operand_t NE_DOUBLE_Operand_t LT_DOUBLE_Operand_t GT_DOUBLE_Operand_t LE_REAL_Operand_t GE_REAL_Operand_t NE_REAL_Operand_t LT_REAL_Operand_t GT_REAL_Operand_t"/>
+	</xs:simpleType>
+	<xs:simpleType name="Operand_t">
+		<xs:union memberTypes="AWLOperands_tt"/>
+	</xs:simpleType>
+	<!-- Special Awl-Keyword   -->
+	<xs:simpleType name="IS_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="==0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="NOT_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;&gt;0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GT_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="GE_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&gt;=0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LT_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="LE_NULL_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="&lt;=0"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BIE_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="BIE"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="UO_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="UO"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OV_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OV"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="OS_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="OS"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="STW_Keyword_t">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="STW"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="CompareAwlKeywords_tt">
+		<xs:union memberTypes="IS_NULL_Keyword_t NOT_NULL_Keyword_t GT_NULL_Keyword_t GE_NULL_Keyword_t LT_NULL_Keyword_t LE_NULL_Keyword_t BIE_Keyword_t UO_Keyword_t OV_Keyword_t OS_Keyword_t STW_Keyword_t"/>
+	</xs:simpleType>
+	<xs:simpleType name="AWL_Keyword_t">
+		<xs:union memberTypes="CompareAwlKeywords_tt"/>
+	</xs:simpleType>
+</xs:schema>

@@ -1,0 +1,29 @@
+{
+  "keep_first_segment": true,
+  "networks": [
+    {
+      "title": "调用 FB_交通灯",
+      "call": {
+        "fb": "FB_交通灯",
+        "instance": "交通灯DB",
+        "enable": "启动按钮",
+        "params": [
+          { "pin": "启动",       "section": "Input",  "type": "Bool", "to": "启动按钮" },
+          { "pin": "停止",       "section": "Input",  "type": "Bool", "to": "停止按钮" },
+          { "pin": "模式1",      "section": "Input",  "type": "Bool", "to": "模式1按钮" },
+          { "pin": "模式2",      "section": "Input",  "type": "Bool", "to": "模式2按钮" },
+          { "pin": "模式3",      "section": "Input",  "type": "Bool", "to": "模式3按钮" },
+          { "pin": "模式4",      "section": "Input",  "type": "Bool", "to": "模式4按钮" },
+          { "pin": "正常模式",   "section": "Input",  "type": "Bool", "to": "正常模式按钮" },
+          { "pin": "南北红灯",   "section": "Output", "type": "Bool", "to": "南北红灯" },
+          { "pin": "南北绿灯",   "section": "Output", "type": "Bool", "to": "南北绿灯" },
+          { "pin": "南北黄灯",   "section": "Output", "type": "Bool", "to": "南北黄灯" },
+          { "pin": "东西红灯",   "section": "Output", "type": "Bool", "to": "东西红灯" },
+          { "pin": "东西绿灯",   "section": "Output", "type": "Bool", "to": "东西绿灯" },
+          { "pin": "东西黄灯",   "section": "Output", "type": "Bool", "to": "东西黄灯" },
+          { "pin": "倒计时显示", "section": "Output", "type": "Int",  "to": "倒计时显示" }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,284 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2013 sp1 (x64) (http://www.altova.com) by Thilo Opaterny (Siemens AG) -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+	<xs:include schemaLocation="SW.InterfaceSections_v3.xsd"/>
+	<xs:include schemaLocation="Step7OpennessBody.xsd"/>
+	<xs:attributeGroup name="BlockAttribute_G">
+		<xs:attribute name="TargetContext" type="TargetContext_TE" use="required"/>
+		<xs:attribute name="Name" type="SimaticName_TP" use="required"/>
+		<xs:attribute name="Type" type="BlockType_TE" use="required"/>
+		<xs:attribute name="Number" type="xs:unsignedShort"/>
+	</xs:attributeGroup>
+	<xs:group name="BlockSequence_G">
+		<xs:sequence>
+			<xs:element ref="Title" minOccurs="0"/>
+			<xs:element ref="Comment" minOccurs="0"/>
+		</xs:sequence>
+	</xs:group>
+	<xs:simpleType name="Datablock_TE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="SharedDB"/>
+			<xs:enumeration value="DBofUDT"/>
+			<xs:enumeration value="DBofSDT"/>
+			<xs:enumeration value="IDBofFB"/>
+			<xs:enumeration value="IDBofSFB"/>
+			<xs:enumeration value="ArrayDB"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="KnowHowProtection_TE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="KnowHowProtection"/>
+			<xs:enumeration value="NoProtection"/>
+			<xs:enumeration value="SystemKnowHowProtection"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="S7Codeblock" type="S7Codeblock_T"/>
+	<xs:complexType name="S7Codeblock_T">
+		<xs:sequence>
+			<xs:element ref="AttributeList" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="BlockSequence_G"/>
+			<xs:element ref="Sections"/>
+			<xs:group ref="Body_G"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="BlockAttribute_G"/>
+	</xs:complexType>
+	<xs:element name="S7Datablock" type="S7Datablock_T"/>
+	<xs:complexType name="S7Datablock_T">
+		<xs:sequence>
+			<xs:element ref="AttributeList" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="BlockSequence_G"/>
+			<xs:element ref="Sections"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="BlockAttribute_G"/>
+	</xs:complexType>
+	<xs:element name="S7Program" type="S7Program_T"/>
+	<xs:complexType name="S7Program_T">
+		<xs:choice maxOccurs="unbounded">
+			<xs:element ref="S7Codeblock"/>
+			<xs:element ref="S7Datablock"/>
+			<xs:element ref="S7Type"/>
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="S7Type" type="S7Type_T"/>
+	<xs:complexType name="S7Type_T">
+		<xs:sequence>
+			<xs:element ref="AttributeList" minOccurs="0" maxOccurs="1"/>
+			<xs:group ref="BlockSequence_G"/>
+			<xs:element ref="Sections"/>
+		</xs:sequence>
+		<xs:attributeGroup ref="BlockAttribute_G"/>
+	</xs:complexType>
+	<xs:simpleType name="TargetContext_TE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="MC7classic"/>
+			<xs:enumeration value="MC7innovation"/>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:simpleType name="BlockAttribut_TE">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="ExportVersion">
+				<xs:annotation>
+					<xs:documentation>type="VersionString_TP" TIA-Portal Version</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExtVersion">
+				<xs:annotation>
+					<xs:documentation>type="String8_T" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExtAuthor">
+				<xs:annotation>
+					<xs:documentation>type="String8_T" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExtName">
+				<xs:annotation>
+					<!-- use to find back into LIB in 300/400-->
+					<xs:documentation>type="String8_T" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ExtFamily">
+				<xs:annotation>
+					<xs:documentation>type="String8_T" block property, use for accesibility</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Optimization">
+				<xs:annotation>
+					<xs:documentation>type="Optimization_TP" default="Optimized" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsOnlyInLoadMemory">
+				<xs:annotation>
+					<!-- only for DB -->
+					<xs:documentation>
+                        type="xs:boolean" default="false" block property
+                        "Only stored in load memory"
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsWriteProtectedInAs">
+				<xs:annotation>
+					<!-- only for DB -->
+					<xs:documentation>
+                        type="xs:boolean" default="false" block property
+                        "Data block is write protecetd in PLC"
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IsNoneOptimizedRetain">
+				<xs:annotation>
+					<xs:documentation>
+                        type="xs:boolean" default="false" hidden block property,
+                        check one member and all other change too
+                    </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="IECCheck">
+				<xs:annotation>
+					<xs:documentation>type="xs:boolean" default="true" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="FProtection">
+				<xs:annotation>
+					<xs:documentation>type="xs:boolean" default="false" indicates fail safe blocks</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MemoryReserve">
+				<xs:annotation>
+					<!-- for DB and FB -->
+					<xs:documentation>type="xs:unsigned" default="0" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="RetainMemoryReserve">
+				<xs:annotation>
+					<!-- for DB and FB -->
+					<xs:documentation>type="xs:unsigned" default="0" block property</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ProgrammingLanguage">
+				<xs:annotation>
+					<xs:documentation>type="ProgrammingLanguage_TE"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Licensed">
+				<xs:annotation>
+					<!-- not exported -->
+					<xs:documentation>type="xs:boolean" default="false"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="KnowHowProtection">
+				<xs:annotation>
+					<!-- not exported at all -->
+					<xs:documentation>type="KnowHowProtection_TE" default="NoProtection"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="MICapability">
+				<xs:annotation>
+					<!-- only for FB, not exported -->
+					<xs:documentation>type="xs:boolean" default="true" can be used in static section </xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OBInterfaceType">
+				<xs:annotation>
+					<!-- only for OB -->
+					<xs:documentation>type="OBInterfaceType_TE" default="Classic"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Subtype">
+				<xs:annotation>
+					<!-- only for DB -->
+					<xs:documentation>type="BlockType_TE" parent type</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OfName">
+				<xs:annotation>
+					<!-- only for DB -->
+					<xs:documentation>type="SimaticName_TP"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OfNumber">
+				<xs:annotation>
+					<!-- only for DB -->
+					<xs:documentation>type="xs:unsignedShort"</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OfVersion">
+				<xs:annotation>
+					<!-- not exported -->
+					<xs:documentation>type="VersionString_TP" link to library</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OfLibraryType">
+				<xs:annotation>
+					<!-- not exported -->
+					<xs:documentation>type="GUID_TP"  link to library</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="OfLibraryVersion">
+				<xs:annotation>
+					<!-- not exported -->
+					<xs:documentation>type="GUID_TP" link to library</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="Modified">
+				<xs:annotation>
+					<!-- ignored -->
+					<xs:documentation>type="xs:dateTime" last change</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="InterfaceModified">
+				<xs:annotation>
+					<!-- ignored -->
+					<xs:documentation>type="xs:dateTime" last Interface change, this includes STATIC and TEMP</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="ParameterModified">
+				<xs:annotation>
+					<!-- only for OB,FB,FC -->
+					<!-- ignored -->
+					<xs:documentation>type="xs:dateTime" last Parameter change, this excludes TEMP</xs:documentation>
+					<!-- STATIC is not so clear, see https://asrdwiki.siemens.com/spl/index.php/TimeStamp_Handling_Reference -->
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="StructureModified">
+				<xs:annotation>
+					<!-- ignored -->
+					<xs:documentation>type="xs:dateTime" last structural change, this includes STATIC and reserve memory</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+			<xs:enumeration value="CodeModified">
+				<xs:annotation>
+					<!-- ignored -->
+					<xs:documentation>type="xs:dateTime" last Body/StartValue change or compile</xs:documentation>
+				</xs:annotation>
+			</xs:enumeration>
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:element name="CompileUnit" type="CompileUnit_T"/>
+	<xs:complexType name="CompileUnit_T">
+		<xs:sequence>
+			<xs:element ref="Title" minOccurs="0"/>
+			<xs:element ref="Comment" minOccurs="0"/>
+			<xs:choice>
+				<xs:element ref="StatementList" minOccurs="0"/>
+				<xs:element ref="FlgNet" minOccurs="0"/>
+				<xs:element ref="Actions" minOccurs="0"/>
+				<xs:element ref="StructuredText" minOccurs="0"/>
+			</xs:choice>
+		</xs:sequence>
+		<xs:attribute name="UId" type="xs:int" use="optional"/>
+		<xs:attribute name="ProgrammingContext" type="ProgrammingContext_TE" default="Plain"/>
+		<xs:attribute name="ProgrammingLanguage" type="ProgrammingLanguage_TE" use="required"/>
+	</xs:complexType>
+	<xs:group name="Body_G">
+		<xs:choice>
+			<xs:element ref="CompileUnit" minOccurs="0" maxOccurs="unbounded"/>
+			<xs:sequence>
+				<xs:element ref="PreOperations" minOccurs="0"/>
+				<xs:element ref="Sequence" maxOccurs="unbounded"/>
+				<xs:element ref="PostOperations" minOccurs="0"/>
+			</xs:sequence>
+		</xs:choice>
+	</xs:group>
+
+</xs:schema>

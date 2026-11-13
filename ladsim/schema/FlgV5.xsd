@@ -1,0 +1,357 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!-- Copyright © Siemens AG 2008-2017. All rights reserved. -->
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema">
+  <xs:include schemaLocation="Types.xsd">
+    <xs:annotation>
+      <xs:documentation>The basic types.</xs:documentation>
+    </xs:annotation>
+  </xs:include>
+  <xs:element name="FlgNet" type="FlgNetType"/>
+  <xs:complexType name="FlgNetType">
+    <xs:sequence>
+      <xs:element name="Labels" type="LabelsType" minOccurs="0"/>
+      <xs:element name="Parts" type="PartsType"/>
+      <xs:element name="Wires" type="WiresType"/>
+    </xs:sequence>
+    <xs:attribute name="Lang" type="LanguageType" use="required"/>
+    <xs:attribute name="Version" use="required">
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:pattern value="\d+\.\d+\.\d+\.\d+"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="Routed" type="xs:boolean" use="optional"/>
+    <xs:attribute name="Name" type="xs:string" use="optional"/>
+    <xs:attribute ref="UId" use="optional"/>
+    <xs:attribute name="RefId" type="RefIdType" default="0" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="LabelsType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="ORef" type="ORefType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartsType">
+    <xs:choice minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Part" type="PartType"/>
+      <xs:element name="ORef" type="ORefType"/>
+      <xs:element name="CRef" type="CRefType"/>
+      <xs:element name="LRef" type="LRefType"/>
+    </xs:choice>
+  </xs:complexType>
+  <xs:complexType name="WiresType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:element name="Wire" type="WireType"/>
+    </xs:sequence>
+  </xs:complexType>
+  <xs:complexType name="PartType">
+    <xs:annotation>
+      <xs:documentation>The order has to be ViewInfo, Invisible, Negated. New PartTypes must be added before ViewInfo</xs:documentation>
+    </xs:annotation>
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:annotation>
+        <xs:documentation>The child nodes of the FLG and FLD have been writen in different order.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="Template" type="TemplateType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The template parameters of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Equation" type="EquationType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The equation of this part. This is only used for the Calculate box.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Operations" type="OperationsType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>The operations attached to pins of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ViewInfo" type="ViewInfoType" minOccurs="0"/>
+      <xs:element name="Invisible" type="InvisibleType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The invisible pins of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded">
+        <xs:annotation>
+          <xs:documentation>The negated pins of this part.</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+    </xs:sequence>
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="Gate" type="xs:string" use="required"/>
+    <xs:attribute name="DisplayName" type="xs:string" use="optional"/>
+    <xs:attribute name="CommentId" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictString" type="xs:string" use="optional"/>
+    <xs:attribute name="Layer" type="xs:string" use="optional" default="Code, Drawing"/>
+    <xs:attribute name="DisableENO" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>If this flag is set to true the ENO generation for this part is disabled.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="CountType" type="CountTypeValue" use="optional">
+      <xs:annotation>
+        <xs:documentation>This attribute is without meaning, but it exists in old XML.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="SrcType" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>This attribute should have been a template type. But it showed up this way for the 'Add' for instance.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="Card" type="xs:int" use="optional">
+      <xs:annotation>
+        <xs:documentation>This attribute should have been a template cardinality. But is showed up this way for the 'Add' for instance.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:simpleType name="CountTypeValue">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="???"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:simpleType name="ConversionType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="None">
+        <xs:annotation>
+          <xs:documentation>No implicit conversion applied to the operand.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="Implicit">
+        <xs:annotation>
+          <xs:documentation>Implicit conversion applied to the operand.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+      <xs:enumeration value="ImplicitErrorPossible">
+        <xs:annotation>
+          <xs:documentation>Implicit conversion applied to the operand, but errors at runtime are possible.</xs:documentation>
+        </xs:annotation>
+      </xs:enumeration>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="ORefType">
+    <xs:sequence>
+      <xs:element name="ViewInfo" type="ViewInfoType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="RefId" type="RefIdType" use="optional" default="0"/>
+    <xs:attribute name="DisplayName" type="xs:string" use="optional" default=""/>
+    <xs:attribute name="CommentId" type="xs:integer" use="optional"/>
+    <xs:attribute name="Layer" type="xs:string" use="optional" default="Code, Drawing"/>
+    <xs:attribute name="Conversion" type="ConversionType" use="optional" default="None">
+      <xs:annotation>
+        <xs:documentation>The implicit datatype conversion applied to this operand.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="State" type="OperandState" use="optional">
+      <xs:annotation>
+        <xs:documentation>value is ignored after read</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="CRefType">
+    <xs:sequence>
+      <xs:element name="ORef" type="ORefType" minOccurs="0" maxOccurs="2">
+        <xs:annotation>
+          <xs:documentation>CodeBlock or LocalBlock and DataBlock can have a ORef eache. But if the call is not complete we might have none at all.	</xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="ViewInfo" type="ViewInfoType" minOccurs="0"/>
+      <xs:element name="Invisible" type="InvisibleType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="CallType" type="CallTypeType" use="required"/>
+    <xs:attribute name="RefId" type="RefIdType" use="required"/>
+    <xs:attribute name="DisplayName" type="xs:string" use="optional"/>
+    <xs:attribute name="CommentId" type="xs:integer" use="optional"/>
+    <xs:attribute name="Layer" type="xs:string" use="optional" default="Code, Drawing"/>
+  </xs:complexType>
+  <xs:complexType name="LRefType">
+    <xs:sequence minOccurs="0" maxOccurs="unbounded">
+      <xs:annotation>
+        <xs:documentation>The child nodes of the FLG and FLD have been writen in different order.</xs:documentation>
+      </xs:annotation>
+      <xs:element name="ORef" type="ORefType" minOccurs="0">
+        <xs:annotation>
+          <xs:documentation>
+            one ORef for the CodeBlock or LocalBlock and one ORef for the DataBlock but there are also LRefs without!!!
+          </xs:documentation>
+        </xs:annotation>
+      </xs:element>
+      <xs:element name="Template" type="TemplateType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="ViewInfo" type="ViewInfoType" minOccurs="0"/>
+      <xs:element name="Invisible" type="InvisibleType" minOccurs="0" maxOccurs="unbounded"/>
+      <xs:element name="Negated" type="NegType" minOccurs="0" maxOccurs="unbounded"/>
+    </xs:sequence>
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="CallType" type="CallTypeType" use="optional"/>
+    <xs:attribute name="DisplayName" type="xs:string" use="optional"/>
+    <xs:attribute name="RefId" type="RefIdType" use="required"/>
+    <xs:attribute name="Name" type="xs:string" use="optional"/>
+    <xs:attribute name="CommentId" type="xs:integer" use="optional"/>
+    <xs:attribute name="Layer" type="xs:string" use="optional" default="Code, Drawing"/>
+    <xs:attribute name="EN" type="xs:boolean" use="optional"/>
+    <xs:attribute name="ENO" type="xs:boolean" use="optional"/>
+    <xs:attribute name="DisableENO" type="xs:boolean" use="optional" default="false">
+      <xs:annotation>
+        <xs:documentation>If this flag is set to true the ENO generation for this part is disabled.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="str_type" type="xs:string">
+      <xs:annotation>
+        <xs:documentation>Should have become a template type, but became this attribute for 'Concat' for instance.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="InvisibleType">
+    <xs:annotation>
+      <xs:documentation>Either PinName or ParaNum has to be provided.</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="PinName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The name of the invisible pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ParaName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The name of the invisible pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ParaNum" type="xs:integer" use="optional">
+      <xs:annotation>
+        <xs:documentation>The number of the negated pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="NegType">
+    <xs:annotation>
+      <xs:documentation>Either PinName or ParaNum has to be provided</xs:documentation>
+    </xs:annotation>
+    <xs:attribute name="PinName" type="xs:string" use="optional">
+      <xs:annotation>
+        <xs:documentation>The name of the negated pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="ParaNum" type="xs:integer" use="optional">
+      <xs:annotation>
+        <xs:documentation>The number of the negated pin.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="WireType">
+    <xs:sequence>
+      <xs:choice maxOccurs="unbounded">
+        <xs:element name="Powerrail"/>
+        <xs:element name="PCon" type="PConType"/>
+        <xs:element name="OCon" type="OConType"/>
+        <xs:element name="CCon" type="CConType"/>
+        <xs:element name="Bullet" type="BulletType"/>
+        <xs:element name="Corner" type="CornerType"/>
+        <xs:element name="Openbranch"/>
+      </xs:choice>
+      <xs:element name="ViewInfo" type="ViewInfoType" minOccurs="0"/>
+    </xs:sequence>
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="DisplayString" type="xs:string" use="optional"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictString" type="xs:string" use="optional"/>
+    <xs:attribute name="Layer" type="xs:string" use="optional" default="Code, Drawing"/>
+  </xs:complexType>
+  <xs:complexType name="OConType">
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="DevAid" type="xs:string" use="optional"/>
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictString" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="PConType">
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="PinName" type="xs:string" use="required"/>
+    <xs:attribute name="DevAid" type="xs:string" use="optional"/>
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictId" type="xs:integer" use="optional"/>
+    <xs:attribute name="DictString" type="xs:string" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="CConType">
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="ParaNum" type="xs:integer" use="required"/>
+    <xs:attribute name="DevAid" type="xs:string" use="optional"/>
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="ViewInfoType">
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="Height" type="xs:integer" use="optional"/>
+    <xs:attribute name="Width" type="xs:integer" use="optional"/>
+    <xs:attribute name="Start" type="xs:boolean" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="BulletType">
+    <xs:attribute ref="UId" use="required"/>
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+  </xs:complexType>
+  <xs:complexType name="CornerType">
+    <xs:attribute name="XPos" type="xs:integer" use="optional"/>
+    <xs:attribute name="YPos" type="xs:integer" use="optional"/>
+  </xs:complexType>
+  <xs:simpleType name="CallTypeType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="GlobalCall"/>
+      <xs:enumeration value="FunctionCall"/>
+      <xs:enumeration value="LocalCall"/>
+    </xs:restriction>
+  </xs:simpleType>
+  <xs:complexType name="TemplateType">
+    <xs:attribute name="Name" type="xs:string" use="required">
+      <xs:annotation>
+        <xs:documentation>The name of the template parameter, e.g. Card or type_x.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+    <xs:attribute name="StringValue" use="optional"><!-- type="xs:string" -->
+      <xs:annotation>
+        <xs:documentation>The string value of the template parameter.</xs:documentation>
+      </xs:annotation>
+      <xs:simpleType>
+        <xs:restriction base="xs:string">
+          <xs:minLength value="1"/>
+        </xs:restriction>
+      </xs:simpleType>
+    </xs:attribute>
+    <xs:attribute name="IntValue" type="xs:integer" use="optional">
+      <xs:annotation>
+        <xs:documentation>The string value of the template parameter.</xs:documentation>
+      </xs:annotation>
+    </xs:attribute>
+  </xs:complexType>
+  <xs:complexType name="EquationType">
+    <xs:simpleContent>
+      <xs:extension base="xs:string">
+        <xs:attribute name="Valid" type="xs:boolean" use="required"/>
+      </xs:extension>
+    </xs:simpleContent>
+  </xs:complexType>
+  <xs:complexType name="OperationsType">
+    <xs:sequence>
+      <xs:element name="Operation" maxOccurs="unbounded">
+        <xs:complexType>
+          <xs:attribute name="Name" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>The name of the operation</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+          <xs:attribute name="PinName" type="xs:string" use="required">
+            <xs:annotation>
+              <xs:documentation>The name of the pin the operation is connected to.</xs:documentation>
+            </xs:annotation>
+          </xs:attribute>
+        </xs:complexType>
+      </xs:element>
+    </xs:sequence>
+  </xs:complexType>
+</xs:schema>

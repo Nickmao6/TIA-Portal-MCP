@@ -1,0 +1,9 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:awlscl="http://www.siemens.com/automation/2010/IECPL" targetNamespace="http://www.siemens.com/automation/2010/IECPL" elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- import types format. Contains language dependent part -->
+	<xs:include schemaLocation="AwlTypesInternational.xsd"/>
+	<!-- ?????????????? -->
+	<!-- import awl scl language independent schema -->
+	<xs:include schemaLocation="AWLSCL.xsd"/>
+	<!-- ?????????????? -->
+</xs:schema>
