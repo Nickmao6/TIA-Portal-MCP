@@ -105,3 +105,28 @@ System_Byte=%MB1  FirstScan=%M1.0 DiagStatusUpdate=%M1.1 AlwaysTRUE=%M1.2 Always
 4. 不要假设设备名/变量名存在，先 `tia_browse_tree` / `tia_list_devices` 确认
 5. 覆盖已有块必须显式 `overwrite=true`，禁止静默覆盖
 6. 同一项目串行操作；worker 已有互斥锁，但客户端别并发写
+
+## 9. 运动控制工艺块（实测）
+
+详细笔记见 [`MOTION-CONTROL-NOTES.md`](MOTION-CONTROL-NOTES.md)。
+
+已验证可写入并编译：
+
+- `MC_Power`
+- `MC_MoveJog`
+- `MC_Home`
+- `MC_MoveAbsolute`
+- `MC_Reset`
+- `MC_Halt`
+- `MC_MoveRelative`
+- `MC_MoveVelocity`
+
+关键点：
+
+- LAD 里的工艺指令是 `<Part Name="MC_*" Version="8.0">`，不是普通 `<Call>`
+- **所有输出引脚都要接** `OpenCon` 或实际变量，漏接会报 `connection ... is not connected`
+- 先导入 Part，TIA 才会在系统块里生成对应的 `MC_*` FB；然后用 `tia_ensure_instance_db` 建实例 DB
+- `MC_Reset` 需要 `Restart` 引脚；`MC_Halt` 本版本没有 `Deceleration` 引脚
+- `MC_WriteParam` / `MC_ReadParam` 的引脚是 `TO`，不是 `Axis`，并且需要 `value_type` 的 `TemplateValue`
+- `MC_CommandTable` 需要真实命令表对象；`MC_ChangeDynamic` 需要动态参数，不能空接
+- 这 4 个（CommandTable / ChangeDynamic / WriteParam / ReadParam）用户已明确暂缓，不要自动硬塞

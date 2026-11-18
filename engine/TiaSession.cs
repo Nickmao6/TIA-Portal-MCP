@@ -3262,7 +3262,9 @@ namespace TiaEngine
                 try { if (SafeName(() => b.Name) == fbName) { fbFound = true; break; } } catch { }
             }
             bool looksSystem = fbName.StartsWith("IEC_", StringComparison.OrdinalIgnoreCase)
-                            || fbName.StartsWith("IEC", StringComparison.OrdinalIgnoreCase);
+                            || fbName.StartsWith("IEC", StringComparison.OrdinalIgnoreCase)
+                || fbName.StartsWith("MC_", StringComparison.OrdinalIgnoreCase)
+                || fbName.StartsWith("MC", StringComparison.OrdinalIgnoreCase);
             if (!fbFound && !looksSystem)
                 throw new TiaException("FB_NOT_FOUND", "找不到功能块: " + fbName
                     + "。若要建定时器/计数器的实例 DB, 请把 --fb 传成系统 FB 名(如 IEC_TIMER / IEC_COUNTER)。");

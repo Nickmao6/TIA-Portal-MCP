@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Diagnostics;
@@ -292,6 +292,30 @@ namespace TiaMcpServer
         {
             var args = new List<string> { "--mode", "add_device", "--type", type_identifier, "--name", device_name };
             if (!string.IsNullOrWhiteSpace(device_item_name)) { args.Add("--device-name"); args.Add(device_item_name); }
+            return await RunWorker(ct, args.ToArray());
+        }
+
+        // =====================================================================
+        // 16. [WRITE] tia_ensure_instance_db
+        // =====================================================================
+        [McpServerTool(Name = "tia_ensure_instance_db", ReadOnly = false, Destructive = false, OpenWorld = false,
+            UseStructuredContent = false)]
+        [Description("[WRITE] 为已存在的 FB（含 MC_* 系统工艺块）创建实例 DB。工艺块先通过 tia_import_lad_xml 导入后，TIA 才会生成对应系统 FB；然后调用本工具创建 <名称>_DB。返回 {ok,result:{status,detail},error}")]
+        public async Task<CallToolResult> EnsureInstanceDb(
+            [Description("FB 名称，如 MC_Reset、MC_Halt、MC_MoveRelative")] string fb_name,
+            [Description("要创建的实例 DB 名称，如 MC_Reset_DB")] string db_name,
+            [Description("PLC 软件名称，可选")] string? plc_name,
+            [Description("只预演，默认 true")] bool? dry_run,
+            CancellationToken ct)
+        {
+            var args = new List<string>
+            {
+                "--mode", "ensure_idb",
+                "--fb", fb_name,
+                "--db", db_name,
+                "--plc", plc_name ?? ""
+            };
+            if (dry_run ?? true) args.Add("--dry-run");
             return await RunWorker(ct, args.ToArray());
         }
 

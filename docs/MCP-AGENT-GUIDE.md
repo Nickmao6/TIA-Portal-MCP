@@ -59,11 +59,33 @@ tia_ensure_tags(tags="启动@%M0.0@Bool,停止@%M0.1@Bool,计数@%MW10@Int", dry
 - 覆盖已有块：显式传 `overwrite=true`，不要默认覆盖
 - 导入后调用 `tia_compile_plc`，以编译诊断为准
 
-## 4. 保存
+## 4. 工艺指令（运动控制）
+
+详细格式见 [`MOTION-CONTROL-NOTES.md`](MOTION-CONTROL-NOTES.md)。
+
+已验证可用：
+
+- `MC_Power`
+- `MC_MoveJog`
+- `MC_Home`
+- `MC_MoveAbsolute`
+- `MC_Reset`
+- `MC_Halt`
+- `MC_MoveRelative`
+- `MC_MoveVelocity`
+
+规则：
+
+- 工艺块在 LAD 里是 `<Part Name="MC_*" Version="8.0">`，不是普通 `<Call>`
+- 先导入 Part，TIA 才会生成系统 FB；再用 `tia_ensure_instance_db` 建实例 DB
+- 所有输出引脚都要接 `OpenCon` 或变量
+- `MC_CommandTable`、`MC_ChangeDynamic`、`MC_WriteParam`、`MC_ReadParam` 需要真实工艺对象/参数，暂不自动生成
+
+## 5. 保存
 
 只有 `tia_save_project` 会保存。导入/改标签后如果要落盘，显式调用它。
 
-## 5. HMI
+## 6. HMI
 
 当前 MCP 只覆盖 PLC 程序。HMI 的：
 
@@ -73,7 +95,7 @@ tia_ensure_tags(tags="启动@%M0.0@Bool,停止@%M0.1@Bool,计数@%MW10@Int", dry
 
 这些 Openness 不支持，必须由人在 TIA UI 里做。Agent 不要承诺“全自动 HMI”。
 
-## 6. PLCSIM
+## 7. PLCSIM
 
 `tia_plcsim_run` 只能做有限控制。PLCSIM V21 标准版没有进程外变量读写 API：
 
@@ -82,7 +104,7 @@ tia_ensure_tags(tags="启动@%M0.0@Bool,停止@%M0.1@Bool,计数@%MW10@Int", dry
 
 下载到 PLCSIM 需要人工在 TIA 里完成，或在支持 PLCSIM Advanced 的环境里另行接入。
 
-## 7. 安全规则
+## 8. 安全规则
 
 - 不要调用不存在的 `delete_*` 工具；删除只在 TiaEngine CLI
 - 不要修改 `tia-scope.txt` 去绕过项目范围
@@ -90,7 +112,7 @@ tia_ensure_tags(tags="启动@%M0.0@Bool,停止@%M0.1@Bool,计数@%MW10@Int", dry
 - 每次写操作后编译并报告诊断
 - 不猜测错误，按编译器返回的 Path/描述改
 
-## 8. 常见错误
+## 9. 常见错误
 
 | 错误码 | 处理 |
 |---|---|

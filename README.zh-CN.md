@@ -1,4 +1,4 @@
-﻿# TIA Portal V21 MCP Server（中文）
+# TIA Portal V21 MCP Server（中文）
 
 > English: [README.md](README.md)
 
@@ -7,6 +7,8 @@
 > **第一次用请先看** [`docs/使用说明.md`](docs/使用说明.md) —— 面向不写代码的用户，讲清楚了怎么用、怎么配、有哪些安全边界。
 >
 > **接入 AI Agent** 请看 [`docs/MCP-AGENT-GUIDE.md`](docs/MCP-AGENT-GUIDE.md) —— 调用顺序、工具约定、错误码和安全规则。
+>
+> **运动控制工艺块** 请看 [`docs/MOTION-CONTROL-NOTES.md`](docs/MOTION-CONTROL-NOTES.md) —— 实测可写入的 MC_* 指令与 LAD 接线。
 
 ## 架构（双进程硬约束）
 
@@ -42,7 +44,7 @@ C:\path\to\PLCMCP\
 │   └── Models.cs              错误模型 / 结果模型
 ├── mcp-server\                .NET 8 MCP 宿主
 │   ├── McpHost.csproj         net8.0 + ModelContextProtocol 2.2.0
-│   ├── Program.cs             15 个工具定义 + 转发到 worker
+│   ├── Program.cs             16 个工具定义 + 转发到 worker
 │   └── mcp-probe.ps1          stdio 协议自测脚本
 ├── ladsim\                    LAD(梯形图)生成与解析工具链
 │   ├── ladgen.py              SimaticML 底层生成器(触点/线圈/串联/并联)
@@ -148,7 +150,7 @@ $dotnet = 'dotnet'
 
 `dryRun` 字段**始终存在**，调用方据此判断是预演还是真执行。
 
-## MCP 工具（15 个）
+## MCP 工具（16 个）
 
 | 工具 | 权限 | 说明 |
 |------|------|------|
@@ -160,6 +162,7 @@ $dotnet = 'dotnet'
 | `tia_plcsim_run` | `[WRITE]` | PLCSIM 控制与变量读写 |
 | `tia_save_project` | `[WRITE]` | 显式保存当前项目 |
 | `tia_ensure_tags` | `[WRITE]` | 批量创建 PLC 变量，默认 dry_run |
+| `tia_ensure_instance_db` | `[WRITE]` | 为 MC_* 等 FB 创建实例 DB |
 | `tia_export_block` | `[READ-ONLY]` | 把程序块导出为 SimaticML XML |
 | `tia_ensure_watch_table` | `[WRITE]` | 创建/打开监控表，便于在线监视 |
 | `tia_list_devices` | `[READ-ONLY]` | 列出当前项目的设备 |

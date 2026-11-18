@@ -37,14 +37,14 @@ TIA Portal V21 (already running with a project open)
 
 Openness uses .NET Framework Remoting and cannot run inside a .NET 8 process, hence the two-process design. The MCP host never calls Openness directly.
 
-## MCP tools (15)
+## MCP tools (16)
 
 | Category | Tools |
 |---|---|
 | Projects | `tia_list_projects`, `tia_create_project`, `tia_open_project`, `tia_close_project` |
 | Devices | `tia_list_devices`, `tia_add_device` |
 | Inspect | `tia_browse_tree` |
-| Tags | `tia_ensure_tags` |
+| Tags | `tia_ensure_tags`, `tia_ensure_instance_db` |
 | Program | `tia_import_scl`, `tia_import_lad_xml`, `tia_export_block` |
 | Compile | `tia_compile_plc` |
 | Save | `tia_save_project` |
@@ -150,6 +150,7 @@ Run it as administrator once per machine/build to add the worker to the allowlis
 
 - [Agent guide](docs/MCP-AGENT-GUIDE.md) — call order, tool contracts, error codes
 - [Agent pitfalls](docs/AGENT-PITFALLS.md) — real TIA/Openness traps
+- [Motion control notes](docs/MOTION-CONTROL-NOTES.md) — tested S7-1200 motion instructions and LAD wiring
 - [Chinese usage guide](docs/使用说明.md)
 - [LAD SimaticML spec](ladsim/LAD-SPEC.md)
 - [Portfolio project description](docs/PLCMCP-项目介绍-作品集.md)
